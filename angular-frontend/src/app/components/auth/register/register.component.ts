@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 export class ConfirmPasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: string = '';
   confirmPasswordMatcher = new ConfirmPasswordErrorStateMatcher();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -46,9 +47,21 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('Form Submitted', this.registerForm.value);
-      this.successMessage = 'Registration successful!';
-      this.errorMessage = '';
+      const { username, email, password } = this.registerForm.value;
+      
+      this.authService.register(username, email, password).subscribe(
+        response => {
+          console.log('Registration successful', response);
+          this.successMessage = 'User registered successfully';
+          this.errorMessage = '';
+          this.registerForm.reset();
+        },
+        error => {
+          console.error('Registration failed', error);
+          this.errorMessage = 'Registration failed: ' + (error.error.message || 'Please try again later.');
+          this.successMessage = '';
+        }
+      );
     } else {
       this.errorMessage = 'Please fix the errors above';
       this.successMessage = '';
