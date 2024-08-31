@@ -1,10 +1,75 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+.image-section {
+  flex: 3; /* 60% of the width */
+  position: relative;
+  overflow: hidden; /* To ensure the blur doesn't overflow */
+}
+
+.image-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url('https://api.time.com/wp-content/uploads/2016/02/gettyimages-138125883.jpg'); /* Use the online image URL */
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px); /* Apply a blur effect */
+  z-index: -1; /* Place the image behind the text */
+}
+
+.welcome-text {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  color: white;
+  z-index: 1; /* Ensure text appears above the blurred image */
+}
+
+.welcome-text h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.welcome-text p {
+  font-size: 1.2em;
+}
+
+.form-section {
+  flex: 2; /* 40% of the width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
 mat-card {
-    max-width: 400px;
-    margin: 2em auto;
-    padding: 1em;
-  }
-  
-  .error-message {
-    color: red;
-  }
-  
+  width: 100%;
+  max-width: 400px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.forgot-password {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+.new-player {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.new-player a {
+  text-decoration: underline;
+}
