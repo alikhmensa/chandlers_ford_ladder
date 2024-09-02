@@ -10,6 +10,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router'; // Import the Router service
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
 export class ConfirmPasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router // Inject the Router service
+    private router: Router, // Inject the Router service
+    private snackBar: MatSnackBar // Inject MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -103,8 +105,15 @@ export class RegisterComponent implements OnInit {
           this.errorMessage = '';
           this.registerForm.reset();
 
-          // Redirect to the login page
-          this.router.navigate(['/login']);
+          // Show snackbar before redirecting
+          this.snackBar.open('Registration successful!', 'Close', {
+            duration: 3000, // Duration in milliseconds
+          });
+
+          // Redirect to the login page after snackbar is shown
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 10); // This delay matches the snackbar duration
         },
         (error) => {
           console.error('Registration failed', error);

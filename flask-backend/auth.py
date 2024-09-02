@@ -3,18 +3,22 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import mysql.connector
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
 
-# Database connection
+# Database connection using environment variables
 def get_db_connection():
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234qaswdfghjkL.",
-        database="ladder_local"
+        host=os.getenv('DB_HOST'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        database=os.getenv('DB_NAME')
     )
     return conn
 

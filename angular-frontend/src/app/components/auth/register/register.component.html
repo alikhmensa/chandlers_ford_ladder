@@ -30,6 +30,9 @@
             formControlName="username"
             placeholder="Username"
             required
+            [ngClass]="{
+              'error-border': registerForm.get('username')?.invalid && registerForm.get('username')?.touched
+            }"
           />
           <div
             *ngIf="
@@ -46,6 +49,9 @@
             placeholder="Email"
             required
             autocomplete="off"
+            [ngClass]="{
+              'error-border': registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+            }"
           />
           <div
             *ngIf="
@@ -67,6 +73,9 @@
             placeholder="Password"
             required
             autocomplete="off"
+            [ngClass]="{
+              'error-border': registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+            }"
           />
           <div
             *ngIf="
@@ -82,6 +91,9 @@
             formControlName="confirmPassword"
             placeholder="Confirm Password"
             required
+            [ngClass]="{
+              'error-border': registerForm.hasError('passwordsNotMatching') && registerForm.get('confirmPassword')?.touched
+            }"
           />
           <div
             *ngIf="
