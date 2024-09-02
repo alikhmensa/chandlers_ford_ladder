@@ -19,21 +19,50 @@
       </div>
       <div class="right-side">
         <h2>CHANDLERS FORD TOURNAMENT</h2>
-        <form (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <input
             type="email"
-            [(ngModel)]="username"
-            name="username"
+            formControlName="email"
             placeholder="Email"
             required
+            autocomplete="off"
+            [ngClass]="{
+              'error-border': loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            }"
           />
+          <div
+            *ngIf="
+              loginForm.get('email')?.invalid &&
+              loginForm.get('email')?.touched
+            "
+            class="error-message"
+          >
+            <span *ngIf="loginForm.get('email')?.errors?.['required']"
+              >Email is required</span
+            >
+            <span *ngIf="loginForm.get('email')?.errors?.['email']"
+              >Invalid email format</span
+            >
+          </div>
           <input
             type="password"
-            [(ngModel)]="password"
-            name="password"
+            formControlName="password"
             placeholder="Password"
             required
+            autocomplete="off"
+            [ngClass]="{
+              'error-border': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+            }"
           />
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="error-message"
+          >
+            Password is required
+          </div>
           <a href="#" class="forgot-password">Forgot Password?</a>
           <button type="submit">Login</button>
         </form>

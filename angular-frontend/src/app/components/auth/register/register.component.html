@@ -27,21 +27,21 @@
         >
           <input
             type="text"
-            formControlName="username"
-            placeholder="Username"
+            formControlName="fullname"
+            placeholder="Full Name"
             required
             [ngClass]="{
-              'error-border': registerForm.get('username')?.invalid && registerForm.get('username')?.touched
+              'error-border': registerForm.get('fullname')?.invalid && registerForm.get('fullname')?.touched
             }"
           />
           <div
             *ngIf="
-              registerForm.get('username')?.invalid &&
-              registerForm.get('username')?.touched
+              registerForm.get('fullname')?.invalid &&
+              registerForm.get('fullname')?.touched
             "
             class="error-message"
           >
-            Username is required
+            Full name is required
           </div>
           <input
             type="email"

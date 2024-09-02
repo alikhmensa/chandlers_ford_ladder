@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
   initializeForm(): void {
     this.registerForm = this.fb.group(
       {
-        username: ['', Validators.required],
+        fullname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
@@ -96,9 +96,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      const { username, email, password } = this.registerForm.value;
+      const { fullname, email, password } = this.registerForm.value;
 
-      this.authService.register(username, email, password).subscribe(
+      this.authService.register(fullname, email, password).subscribe(
         (response) => {
           console.log('Registration successful', response);
           this.successMessage = 'User registered successfully';

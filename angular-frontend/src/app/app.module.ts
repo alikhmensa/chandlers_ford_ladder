@@ -13,14 +13,14 @@ import { AppRoutingModule } from './app-routing.module'; // Correct import
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-// import { LadderComponent } from './components/auth/ladder/ladder.components';
+import { LadderComponent } from './components/ladder/ladder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    // LadderComponent,
+    LadderComponent
   ],
   imports: [
     BrowserModule,

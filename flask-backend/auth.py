@@ -26,19 +26,20 @@ def get_db_connection():
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    username = data['username']
+    fullname = data['fullname']
     password = data['password']
+    email = data['email']
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+    cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
     existing_user = cursor.fetchone()
 
     if existing_user:
         return jsonify({'message': 'User already exists'}), 409
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, hashed_password))
+    cursor.execute('INSERT INTO users (full_name, password, email) VALUES (%s, %s, %s)', (fullname, hashed_password, email))
     conn.commit()
     cursor.close()
     conn.close()
@@ -49,12 +50,12 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data['username']
+    email = data['email']
     password = data['password']
 
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+    cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
     user = cursor.fetchone()
 
     cursor.close()

@@ -126,3 +126,14 @@ form button:hover {
 .create-account a:hover {
   text-decoration: underline;
 }
+
+.error-border {
+  border: 2px solid rgb(233, 99, 99) !important;
+}
+
+.error-message {
+  margin-top: -12px;
+  color: red;
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 5px; /* 10px */
+}
