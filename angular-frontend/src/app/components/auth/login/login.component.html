@@ -1,32 +1,106 @@
-<div class="login-container">
-    <div class="image-section">
-      <div class="welcome-text">
-        <h1>WELCOME BACK</h1>
-        <p>Sign in to your account to access players table and the rest of the tournament website</p>
-      </div>
-    </div>
-  
-    <div class="form-section">
-      <mat-card style="padding: 15px;">
-        <mat-card-title style="margin-bottom: 10px;">Chandlers Ford Ladder Tournament</mat-card-title>
-        <mat-card-content>
-          <form (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" [(ngModel)]="username" name="username" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
-              <input matInput type="password" [(ngModel)]="password" name="password" required>
-            </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" class="full-width">Login</button>
-          </form>
-          <a class="forgot-password">Forgot Password?</a>
-        </mat-card-content>
-        <mat-card-footer>
-          <p class="new-player">NEW PLAYER? <a routerLink="/register" style="cursor: pointer;">CREATE AN ACCOUNT</a></p>
-        </mat-card-footer>
-      </mat-card>
+<!-- <div class="login-container">
+  <div class="image-section">
+    <div class="welcome-text">
+      <h1>WELCOME BACK</h1>
+      <p>
+        Sign in to your account to access players table and the rest of the
+        tournament website
+      </p>
     </div>
   </div>
-  
+
+  <div class="form-section">
+    <mat-card style="padding: 15px">
+      <mat-card-title style="margin-bottom: 10px"
+        >Chandlers Ford Ladder Tournament</mat-card-title
+      >
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+          </mat-form-field>
+          <a class="forgot-password">Forgot Password?</a>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="full-width"
+          >
+            Login
+          </button>
+        </form>
+      </mat-card-content>
+      <mat-card-footer>
+        <p class="new-player">
+          NEW PLAYER?
+          <a routerLink="/register" style="cursor: pointer"
+            >CREATE AN ACCOUNT</a
+          >
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chandlers Ford Tournament</title>
+    <link rel="stylesheet" href="login.component.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <div class="welcome-text">
+          <h1>WELCOME BACK</h1>
+          <p>
+            Sign in to your account to access players table<br />and the rest of
+            the tournament website
+          </p>
+        </div>
+      </div>
+      <div class="right-side">
+        <h2>CHANDLERS FORD TOURNAMENT</h2>
+        <form (ngSubmit)="onSubmit()">
+          <input
+            type="email"
+            [(ngModel)]="username"
+            name="username"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <a href="#" class="forgot-password">Forgot Password?</a>
+          <button type="submit">Login</button>
+        </form>
+        <div class="create-account">
+          <p>New player? <a routerLink="/register">Create an account</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

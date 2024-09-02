@@ -8,17 +8,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';  // Correct import
+import { AppRoutingModule } from './app-routing.module'; // Correct import
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { LadderComponent } from './components/auth/ladder/ladder.components';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LadderComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,11 +31,11 @@ import { RegisterComponent } from './components/auth/register/register.component
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    RouterModule,  // Ensure RouterModule is included here
+    RouterModule, // Ensure RouterModule is included here
     AppRoutingModule,
-    ReactiveFormsModule  // Ensure AppRoutingModule is included here
+    ReactiveFormsModule, // Ensure AppRoutingModule is included here
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

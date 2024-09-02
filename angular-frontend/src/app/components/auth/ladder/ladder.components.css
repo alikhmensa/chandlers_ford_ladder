@@ -1,0 +1,78 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #b0b0b0;
+  padding: 15px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container h1 {
+  font-size: 1.2em;
+  margin: 0;
+  font-weight: bold;
+}
+
+header nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+main {
+  padding: 20px;
+}
+
+.ladder-section {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #d0d0d0;
+}
+
+.ladder-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead th {
+  border-bottom: 2px solid black;
+  padding: 10px 0;
+  text-align: left;
+  font-weight: bold;
+}
+
+table tbody td {
+  padding: 10px 0;
+  border-top: 1px solid black;
+}
+
+table tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.see-more {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.see-more a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
