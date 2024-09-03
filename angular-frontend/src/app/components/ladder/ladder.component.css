@@ -1,0 +1,93 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+mat-toolbar {
+  background-color: #333;
+  color: rgb(255, 255, 255);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin-left: 20px;
+  font-size: 0.75rem;
+  margin-left: 30px;
+}
+
+.top-nav a.active-link {
+  border-bottom: 1.5px solid white;
+  /* Add other styles as needed */
+}
+
+.container {
+  margin: 2rem;
+}
+
+.title-left {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.custom-table {
+  width: 100%;
+  margin-bottom: 20px;
+  table-layout: fixed;
+  background-color: rgb(242, 242, 242);
+}
+
+.mat-cell {
+  text-align: center; /* Center-aligns all cell values */
+  vertical-align: middle;
+  font-size: 1rem;
+  padding: 8px;
+  font-weight: normal; /* Keeps table header bold and other values normal */
+}
+
+.mat-column-rank {
+  width: 5%;
+}
+
+.mat-column-win {
+  color: rgb(0, 190, 0);
+}
+
+.mat-column-lose {
+  color: rgb(255, 0, 0);
+}
+.mat-column-draw {
+  color: rgb(255, 217, 0);
+}
+.mat-column-name {
+  width: 20%;
+}
+
+.mat-column-points,
+.mat-column-gp,
+.mat-column-win,
+.mat-column-lose,
+.mat-column-draw,
+.mat-column-winPercentage {
+  width: 10%;
+}
+
+.mat-column-actions {
+  width: 15%;
+  text-align: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.material-symbols-outlined {
+  color: rgb(0, 0, 0);
+}

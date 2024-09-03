@@ -14,13 +14,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LadderComponent } from './components/ladder/ladder.component';
+import { AccountComponent } from './components/account/account.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    LadderComponent
+    LadderComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,10 @@ import { LadderComponent } from './components/ladder/ladder.component';
     MatFormFieldModule,
     RouterModule, // Ensure RouterModule is included here
     AppRoutingModule,
+    MatToolbarModule,
     ReactiveFormsModule, // Ensure AppRoutingModule is included here
+    MatTableModule,
+    MatIcon,
   ],
   providers: [],
   bootstrap: [AppComponent],

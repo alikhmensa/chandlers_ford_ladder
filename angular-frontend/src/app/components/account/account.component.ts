@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-ladder',
-  templateUrl: './ladder.component.html',
-  styleUrls: ['./ladder.component.css'],
+  selector: 'app-Account',
+  templateUrl: './Account.component.html',
+  styleUrls: ['./Account.component.css'],
 })
-export class LadderComponent {
+export class AccountComponent {
   displayedColumns: string[] = [
     'rank',
     'name',

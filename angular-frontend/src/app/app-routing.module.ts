@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component'; // Corrected path
 import { RegisterComponent } from './components/auth/register/register.component'; // Corrected path
 import { LadderComponent } from './components/ladder/ladder.component';
+import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'ladder', component: LadderComponent }
+  { path: 'ladder', component: LadderComponent },
+  { path: 'account', component: AccountComponent },
 ];
 
 @NgModule({

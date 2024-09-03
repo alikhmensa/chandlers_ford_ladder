@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+
+
 export class LoginComponent implements OnInit {
   fullname: string = '';
   password: string = '';

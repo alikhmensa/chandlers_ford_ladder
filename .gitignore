@@ -1,2 +1,3 @@
 flask-backend/.env
 flask-backend/venv/
+flask-backend/.venv/

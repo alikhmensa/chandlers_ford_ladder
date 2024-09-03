@@ -1,0 +1,73 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<mat-toolbar color="primary">
+  <span>CHANDLERS FORD TOURNAMENT</span>
+  <span class="spacer"></span>
+  <nav class="top-nav">
+    <a routerLink="/account" routerLinkActive="active-link">MY ACCOUNT</a>
+    <a routerLink="/ladder" routerLinkActive="active-link">LADDER</a>
+  </nav>
+</mat-toolbar>
+
+<div class="account-container">
+  <div class="welcome-section">
+    <span class="material-symbols-outlined account-icon">account_circle</span>
+    <h1 class="welcome-text">HELLO, ALIKHAN</h1>
+  </div>
+
+  <div class="account-info-grid">
+    <div class="challenge-notifications">
+      <h2>CHALLENGE NOTIFICATIONS</h2>
+      <div class="challenge">
+        <span>STEVE DUNLEAVY</span>
+        <div class="challenge-buttons">
+          <button mat-button class="decline-button">DECLINE</button>
+          <button mat-button class="accept-button">ACCEPT</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <span>ROSE SAUNDERS</span>
+        <div class="challenge-buttons">
+          <button mat-button class="decline-button">DECLINE</button>
+          <button mat-button class="accept-button">ACCEPT</button>
+        </div>
+      </div>
+      <div class="notification-badge">2</div>
+    </div>
+
+    <div class="game-record">
+      <h2>GAME RECORD</h2>
+      <div class="record-stats">
+        <div class="stat-item">
+          <div class="stat-value">5</div>
+          <div class="stat-label">GAMES</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4</div>
+          <div class="stat-label">WINS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">0</div>
+          <div class="stat-label">LOSSES</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1</div>
+          <div class="stat-label">TIES</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rank">
+      <h2>YOUR RANK</h2>
+      <div class="rank-value">#10</div>
+    </div>
+  </div>
+</div>

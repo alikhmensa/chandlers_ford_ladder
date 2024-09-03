@@ -1,0 +1,145 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+.account-container {
+  padding: 1.25rem;
+}
+
+mat-toolbar {
+  background-color: #333;
+  color: rgb(255, 255, 255);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin-left: 20px;
+  font-size: 0.75rem;
+  margin-left: 30px;
+}
+
+.top-nav a.active-link {
+  border-bottom: 1.5px solid white;
+  /* Add other styles as needed */
+}
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.account-icon {
+  font-size: 60px;
+  margin-right: 1rem;
+}
+
+.welcome-text {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.account-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.challenge-notifications,
+.game-record,
+.rank {
+  background-color: #e0e0e0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.challenge-notifications h2,
+.game-record h2,
+.rank h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: -20px;
+}
+
+.challenge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.challenge span {
+  flex: 1;
+  text-align: left;
+}
+
+.challenge-buttons {
+  display: flex;
+  gap: 0.5rem; /* Space between the buttons */
+}
+
+.decline-button {
+  background-color: #ffcccc;
+  color: black !important;
+  font-weight: bold;
+}
+
+.accept-button {
+  background-color: #ccffcc;
+  color: black !important;
+  font-weight: bold;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #333;
+  color: white;
+  font-size: 10px;
+  padding: 0.1rem 0.65rem;
+  border-radius: 50%;
+}
+
+.record-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 3.5rem;
+  font-weight: 400;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  margin-top: 0.8rem;
+  font-weight: bold;
+}
+
+.rank-value {
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2.4rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
