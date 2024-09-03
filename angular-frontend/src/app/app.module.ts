@@ -17,7 +17,10 @@ import { LadderComponent } from './components/ladder/ladder.component';
 import { AccountComponent } from './components/account/account.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { MatIcon } from '@angular/material/icon';
     RegisterComponent,
     LadderComponent,
     AccountComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ import { MatIcon } from '@angular/material/icon';
     MatToolbarModule,
     ReactiveFormsModule, // Ensure AppRoutingModule is included here
     MatTableModule,
-    MatIcon,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent],

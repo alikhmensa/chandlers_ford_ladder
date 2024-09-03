@@ -1,118 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chandlers Ford Tournament</title>
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Material Icons -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    />
-    <!-- Angular Material Theme -->
-    <link href="ladder.component.css" rel="stylesheet" />
-  </head>
-  <body>
-    <mat-toolbar color="primary">
-      <span>CHANDLERS FORD TOURNAMENT</span>
-      <span class="spacer"></span>
-      <nav class="top-nav">
-        <a routerLink="/account" routerLinkActive="active-link">MY ACCOUNT</a>
-        <a routerLink="/ladder" routerLinkActive="active-link">LADDER</a>
-      </nav>
-    </mat-toolbar>
+<app-navigation-bar></app-navigation-bar>
 
-    <div class="container">
-      <h1 class="title-left">LADDER TOURNAMENT 2023-24</h1>
-      <mat-table [dataSource]="players" class="mat-elevation-z1 custom-table">
-        <!-- Rank Column -->
-        <ng-container matColumnDef="rank">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            RANK
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player">
-            {{ player.rank }}
-          </mat-cell>
-        </ng-container>
+<div class="container">
+  <h1 class="title-left">LADDER TOURNAMENT 2023-24</h1>
+  
+  <div class="ladder-box">
+    <div class="ladder-container" fxLayout="column">
+      
+      <!-- Header Row -->
+      <div class="ladder-header" fxLayout="row">
+        <div class="ladder-header-cell" fxFlex="5" fxLayoutAlign="center center">RANK</div>
+        <div class="ladder-header-cell-name" fxFlex="20" fxLayoutAlign="center center">NAME</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">POINTS</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">GP</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">W</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">L</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">D</div>
+        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">W%</div>
+        <div class="ladder-header-cell" fxFlex="15" fxLayoutAlign="center center">ACTIONS</div>
+      </div>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            NAME
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.name }} </mat-cell>
-        </ng-container>
+      <!-- Data Rows -->
+      <div class="ladder-row" *ngFor="let player of players" fxLayout="row" [ngClass]="{'current-user-row': player.isCurrentUser}">
+        <div class="ladder-cell-rank" fxFlex="5" fxLayoutAlign="center center">{{ player.rank }}</div>
+        <div class="ladder-cell-name" fxFlex="45" fxLayoutAlign="center center">{{ player.full_name }}</div>
+        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">{{ player.points }}</div>
+        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">{{ player.games_played }}</div>
+        <div class="ladder-cell-win" fxFlex="10" fxLayoutAlign="center center">{{ player.win }}</div>
+        <div class="ladder-cell-lose" fxFlex="10" fxLayoutAlign="center center">{{ player.lose }}</div>
+        <div class="ladder-cell-draw" fxFlex="10" fxLayoutAlign="center center">{{ player.draw }}</div>
+        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">
+          {{ player.games_played ? (player.win / player.games_played) : 0 | number:'1.0-2' }}
+        </div>
+        <div class="ladder-cell" fxFlex="15" fxLayoutAlign="center center">
+          <button *ngIf="isNextFour(player)" class="action-button" matTooltip="Challenge" matTooltipPosition="after">
+            <mat-icon class="challenge-icon">sports_martial_arts</mat-icon>
+          </button>
+        </div>
+      </div>
 
-        <!-- Points Column -->
-        <ng-container matColumnDef="points">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            POINTS
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.points }} </mat-cell>
-        </ng-container>
-
-        <!-- Games Played Column -->
-        <ng-container matColumnDef="gp">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            GP
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.gp }} </mat-cell>
-        </ng-container>
-
-        <!-- Win Column -->
-        <ng-container matColumnDef="win">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            W
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.win }} </mat-cell>
-        </ng-container>
-
-        <!-- Lose Column -->
-        <ng-container matColumnDef="lose">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            L
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.lose }} </mat-cell>
-        </ng-container>
-
-        <!-- Draw Column -->
-        <ng-container matColumnDef="draw">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            D
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player"> {{ player.draw }} </mat-cell>
-        </ng-container>
-
-        <!-- Win Percentage Column -->
-        <ng-container matColumnDef="winPercentage">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            W%
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player">
-            {{ player.winPercentage }}
-          </mat-cell>
-        </ng-container>
-
-        <!-- Actions Column -->
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef style="font-weight: bold">
-            ACTIONS
-          </mat-header-cell>
-          <mat-cell *matCellDef="let player">
-            <button mat-icon-button color="primary">
-              <span class="material-symbols-outlined"> chess </span>
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
     </div>
-  </body>
-</html>
+  </div>
+</div>

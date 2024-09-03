@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/player/users.service';
 
 @Component({
   selector: 'app-ladder',
   templateUrl: './ladder.component.html',
   styleUrls: ['./ladder.component.css'],
 })
-export class LadderComponent {
+export class LadderComponent implements OnInit {
+
+  players: any[] = [];
+  tournamentId: any;
+  currentUser: any = null;
   displayedColumns: string[] = [
     'rank',
     'name',
@@ -17,86 +22,65 @@ export class LadderComponent {
     'winPercentage',
     'actions',
   ];
-  players = [
-    {
-      rank: 1,
-      name: 'Player1',
-      points: 12,
-      gp: 4,
-      win: 4,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 2,
-      name: 'Player2',
-      points: 10,
-      gp: 4,
-      win: 3,
-      lose: 1,
-      draw: 0,
-      winPercentage: '75%',
-    },
-    {
-      rank: 3,
-      name: 'Player3',
-      points: 5,
-      gp: 3,
-      win: 1,
-      lose: 2,
-      draw: 0,
-      winPercentage: '33.3%',
-    },
-    {
-      rank: 4,
-      name: 'Player5',
-      points: 3,
-      gp: 3,
-      win: 0,
-      lose: 3,
-      draw: 0,
-      winPercentage: '0%',
-    },
-    {
-      rank: 5,
-      name: 'Player7',
-      points: 3,
-      gp: 1,
-      win: 1,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 6,
-      name: 'Player8',
-      points: 3,
-      gp: 1,
-      win: 1,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 7,
-      name: 'Player4',
-      points: 2,
-      gp: 2,
-      win: 0,
-      lose: 2,
-      draw: 0,
-      winPercentage: '0%',
-    },
-    {
-      rank: 8,
-      name: 'Player6',
-      points: 2,
-      gp: 2,
-      win: 0,
-      lose: 2,
-      draw: 0,
-      winPercentage: '0%',
-    },
-  ];
+
+  constructor(private userService: UserService) {}  
+
+  ngOnInit() {
+    this.tournamentId = 1;
+    this.loadPlayers();
+    this.loadCurrentUser();
+  }
+
+  loadPlayers() {
+    this.userService.getUsersTournamentStats(this.tournamentId).subscribe(
+      (data) => {
+        this.players = data;
+      },
+      (error) => {
+        console.error('Error fetching players:', error);
+      }
+    );
+  }
+
+  loadCurrentUser() {
+    this.userService.getCurrentUser().subscribe(
+      (user) => {
+        this.currentUser = user;
+        this.markCurrentUser();
+      },
+      (error) => {
+        console.error('Error fetching current user:', error);
+      }
+    );
+  }
+
+  markCurrentUser() {
+    if (this.currentUser && this.players.length) {
+      this.players.forEach(player => {
+        player.isCurrentUser = player.name === this.currentUser.fullname;
+      });
+      this.markNextFourPlayers();
+    }
+  }
+
+  markNextFourPlayers() {
+    const currentUserIndex = this.players.findIndex(player => player.isCurrentUser);
+
+    if (currentUserIndex > 0) {
+      // Reset any previous markings
+      this.players.forEach(player => player.isNextFour = false);
+
+      // Mark the four players above the current user
+      for (let i = 1; i <= 4; i++) {
+        const playerIndex = currentUserIndex - i;
+        if (playerIndex >= 0) {
+          this.players[playerIndex].isNextFour = true;
+        }
+      }
+    }
+  }
+
+  isNextFour(player: any): boolean {
+    return player.isNextFour;
+  }
 }

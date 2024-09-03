@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router'; // Import the Router service
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
@@ -107,7 +107,7 @@ export class RegisterComponent implements OnInit {
 
           // Show snackbar before redirecting
           this.snackBar.open('Registration successful!', 'Close', {
-            duration: 3000, // Duration in milliseconds
+            duration: 3000,  panelClass: ['success-skin']
           });
 
           // Redirect to the login page after snackbar is shown
@@ -116,6 +116,9 @@ export class RegisterComponent implements OnInit {
           }, 10); // This delay matches the snackbar duration
         },
         (error) => {
+          this.snackBar.open('Registration failed', 'Close', {
+            duration: 3000, panelClass: ['fail-skin']
+          });
           console.error('Registration failed', error);
           this.errorMessage =
             'Registration failed: ' +

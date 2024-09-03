@@ -2,34 +2,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-mat-toolbar {
-  background-color: #333;
-  color: rgb(255, 255, 255);
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.top-nav a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  margin-left: 20px;
-  font-size: 0.75rem;
-  margin-left: 30px;
-}
-
-.top-nav a.active-link {
-  border-bottom: 1.5px solid white;
-  /* Add other styles as needed */
-}
-
-.container {
-  margin: 2rem;
-}
-
 .title-left {
   text-align: left;
   font-size: 1.5rem;
@@ -41,7 +13,7 @@ mat-toolbar {
   width: 100%;
   margin-bottom: 20px;
   table-layout: fixed;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(255, 255, 255);
 }
 
 .mat-cell {
@@ -52,42 +24,157 @@ mat-toolbar {
   font-weight: normal; /* Keeps table header bold and other values normal */
 }
 
-.mat-column-rank {
-  width: 5%;
+.challenge_icon{
+  color: rgb(0, 123, 255);
 }
 
-.mat-column-win {
-  color: rgb(0, 190, 0);
+.current-user {
+  background-color: #e0f7fa;  /* Light blue background for highlighting */
 }
 
-.mat-column-lose {
-  color: rgb(255, 0, 0);
-}
-.mat-column-draw {
-  color: rgb(255, 217, 0);
-}
-.mat-column-name {
-  width: 20%;
+.container {
+  padding: 20px;
+  background-color: #f0f4f8; /* Light blue background for the container */
 }
 
-.mat-column-points,
-.mat-column-gp,
-.mat-column-win,
-.mat-column-lose,
-.mat-column-draw,
-.mat-column-winPercentage {
-  width: 10%;
+.ladder-box {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.mat-column-actions {
-  width: 15%;
+.ladder-container {
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ladder-header {
+  position: sticky;
+  top: 0;
+  background-color: #eceff1; /* Light grey background for the header */
+  z-index: 10;
+  border-bottom: 1px solid rgba(129, 129, 129, 0.2);
+  display: flex; /* Make the header a flex container */
+  align-items: center; /* Center items vertically */
+}
+
+.ladder-header-cell {
+  padding: 10px;
+  font-weight: bold;
+  border-top: 1px solid rgba(129, 129, 129, 0.2);
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  text-align: center; /* Center the text */
+}
+
+.ladder-header-cell-name{
+  padding: 10px;
+  font-weight: bold;
+  border-top: 1px solid rgba(129, 129, 129, 0.2);
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  width: 240px;
+  text-align: center; /* Center the text */
+}
+
+.ladder-header-cell:last-child {
+  border-right: none;
+}
+
+.ladder-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(129, 129, 129, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ladder-row:hover {
+  background-color: rgba(207, 216, 220, 0.1); /* Light grey hover effect */
+}
+
+.current-user-row {
+  background-color: rgba(255, 183, 77, 0.8); /* Light orange for current user */
+}
+
+.ladder-cell {
+  padding: 10px;
   text-align: center;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  font-weight: bold;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.ladder-cell-win {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  color: green; /* Correct property for text color */
+  font-weight: bold;
 }
 
-.material-symbols-outlined {
-  color: rgb(0, 0, 0);
+.ladder-cell-lose {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  color: red; /* Correct property for text color */
+  font-weight: bold;
+}
+
+.ladder-cell-draw {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  color: orange; 
+  font-weight: bold;
+}
+
+
+.ladder-cell-rank{
+  padding: 10px;
+  font-weight: bold;
+  border-top: 1px solid rgba(129, 129, 129, 0.2);
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  flex: 1; /* Ensure cells are equally distributed */
+  text-align: center; /* Center the text */
+  position: sticky;
+  background-color: #eceff1; /* Light grey background for the header */
+}
+
+.ladder-cell-name{
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  width: 240px;
+}
+
+.ladder-cell:last-child {
+  border-right: none;
+}
+
+.action-button {
+  background-color: #b0bec5; /* Medium grey for the button */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #1e88e5; /* Darker blue for hover */
+}
+
+.challenge-icon {
+  font-size: 16px;
+  color: white;
 }
