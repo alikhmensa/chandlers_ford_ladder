@@ -7,7 +7,6 @@ import { UserService } from '../../services/player/users.service';
   styleUrls: ['./ladder.component.css'],
 })
 export class LadderComponent implements OnInit {
-
   players: any[] = [];
   tournamentId: any;
   currentUser: any = null;
@@ -23,7 +22,7 @@ export class LadderComponent implements OnInit {
     'actions',
   ];
 
-  constructor(private userService: UserService) {}  
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.tournamentId = 1;
@@ -35,6 +34,7 @@ export class LadderComponent implements OnInit {
     this.userService.getUsersTournamentStats(this.tournamentId).subscribe(
       (data) => {
         this.players = data;
+        console.log(this.players);
       },
       (error) => {
         console.error('Error fetching players:', error);
@@ -46,6 +46,7 @@ export class LadderComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user) => {
         this.currentUser = user;
+        console.log(this.currentUser);
         this.markCurrentUser();
       },
       (error) => {
@@ -56,19 +57,21 @@ export class LadderComponent implements OnInit {
 
   markCurrentUser() {
     if (this.currentUser && this.players.length) {
-      this.players.forEach(player => {
-        player.isCurrentUser = player.name === this.currentUser.fullname;
+      this.players.forEach((player) => {
+        player.isCurrentUser = player.full_name === this.currentUser.fullname;
       });
       this.markNextFourPlayers();
     }
   }
 
   markNextFourPlayers() {
-    const currentUserIndex = this.players.findIndex(player => player.isCurrentUser);
+    const currentUserIndex = this.players.findIndex(
+      (player) => player.isCurrentUser
+    );
 
     if (currentUserIndex > 0) {
       // Reset any previous markings
-      this.players.forEach(player => player.isNextFour = false);
+      this.players.forEach((player) => (player.isNextFour = false));
 
       // Mark the four players above the current user
       for (let i = 1; i <= 4; i++) {

@@ -35,6 +35,15 @@ INSERT INTO `users` (`full_name`, `password`, `email`) VALUES
 ('Keith Gregory test', '$2b$12$2VPxwLAFos1YICYizvYoV.3JzuPWd5DK1AYN9KU4s7Gge7G6zPNka', 'keith31p@gmail.com');
 
 INSERT INTO `user_tournament` (`user_id`, `tournament_id`, `rank`, `points`, `games_played`, `win`, `lose`, `draw`) VALUES
+(1, 1, NULL, 0, 0, 0, 0, 0),
+(2, 1, NULL, 0, 0, 0, 0, 0),
+(3, 1, NULL, 0, 0, 0, 0, 0),
+(4, 1, NULL, 0, 0, 0, 0, 0),
+(5, 1, NULL, 0, 0, 0, 0, 0),
+(6, 1, NULL, 0, 0, 0, 0, 0),
+(7, 1, NULL, 0, 0, 0, 0, 0),
+(8, 1, NULL, 0, 0, 0, 0, 0),
+(9, 1, NULL, 0, 0, 0, 0, 0),
 (10, 1, NULL, 0, 0, 0, 0, 0),
 (11, 1, NULL, 0, 0, 0, 0, 0),
 (12, 1, NULL, 0, 0, 0, 0, 0),
@@ -56,17 +65,8 @@ INSERT INTO `user_tournament` (`user_id`, `tournament_id`, `rank`, `points`, `ga
 (28, 1, NULL, 0, 0, 0, 0, 0),
 (29, 1, NULL, 0, 0, 0, 0, 0),
 (30, 1, NULL, 0, 0, 0, 0, 0),
-(31, 1, NULL, 0, 0, 0, 0, 0),
-(32, 1, NULL, 0, 0, 0, 0, 0),
-(33, 1, NULL, 0, 0, 0, 0, 0),
-(34, 1, NULL, 0, 0, 0, 0, 0),
-(35, 1, NULL, 0, 0, 0, 0, 0),
-(36, 1, NULL, 0, 0, 0, 0, 0),
-(37, 1, NULL, 0, 0, 0, 0, 0),
-(38, 1, NULL, 0, 0, 0, 0, 0),
-(39, 1, NULL, 0, 0, 0, 0, 0),
-(40, 1, NULL, 0, 0, 0, 0, 0),
-(41, 1, NULL, 0, 0, 0, 0, 0);
+(31, 1, NULL, 0, 0, 0, 0, 0);
+
 
 UPDATE user_tournament
 SET `rank` = user_id;

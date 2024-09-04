@@ -2,42 +2,122 @@
 
 <div class="container">
   <h1 class="title-left">LADDER TOURNAMENT 2023-24</h1>
-  
+
   <div class="ladder-box">
     <div class="ladder-container" fxLayout="column">
-      
       <!-- Header Row -->
       <div class="ladder-header" fxLayout="row">
-        <div class="ladder-header-cell" fxFlex="5" fxLayoutAlign="center center">RANK</div>
-        <div class="ladder-header-cell-name" fxFlex="20" fxLayoutAlign="center center">NAME</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">POINTS</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">GP</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">W</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">L</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">D</div>
-        <div class="ladder-header-cell" fxFlex="10" fxLayoutAlign="center center">W%</div>
-        <div class="ladder-header-cell" fxFlex="15" fxLayoutAlign="center center">ACTIONS</div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="5"
+          fxLayoutAlign="center center"
+        >
+          RANK
+        </div>
+        <div
+          class="ladder-header-cell-name"
+          fxFlex="20"
+          fxLayoutAlign="center center"
+        >
+          NAME
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          POINTS
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          GP
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          W
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          L
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          D
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="10"
+          fxLayoutAlign="center center"
+        >
+          W%
+        </div>
+        <div
+          class="ladder-header-cell"
+          fxFlex="15"
+          fxLayoutAlign="center center"
+        >
+          ACTIONS
+        </div>
       </div>
 
       <!-- Data Rows -->
-      <div class="ladder-row" *ngFor="let player of players" fxLayout="row" [ngClass]="{'current-user-row': player.isCurrentUser}">
-        <div class="ladder-cell-rank" fxFlex="5" fxLayoutAlign="center center">{{ player.rank }}</div>
-        <div class="ladder-cell-name" fxFlex="45" fxLayoutAlign="center center">{{ player.full_name }}</div>
-        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">{{ player.points }}</div>
-        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">{{ player.games_played }}</div>
-        <div class="ladder-cell-win" fxFlex="10" fxLayoutAlign="center center">{{ player.win }}</div>
-        <div class="ladder-cell-lose" fxFlex="10" fxLayoutAlign="center center">{{ player.lose }}</div>
-        <div class="ladder-cell-draw" fxFlex="10" fxLayoutAlign="center center">{{ player.draw }}</div>
+      <div
+        class="ladder-row"
+        *ngFor="let player of players"
+        fxLayout="row"
+        [ngClass]="{ 'current-user-row': player.isCurrentUser }"
+      >
+        <div class="ladder-cell" fxFlex="5" fxLayoutAlign="center center">
+          {{ player.rank }}
+        </div>
+        <div class="ladder-cell-name" fxFlex="45" fxLayoutAlign="center center">
+          {{ player.full_name }}
+        </div>
         <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">
-          {{ player.games_played ? (player.win / player.games_played) : 0 | number:'1.0-2' }}
+          {{ player.points }}
+        </div>
+        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">
+          {{ player.games_played }}
+        </div>
+        <div class="ladder-cell-win" fxFlex="10" fxLayoutAlign="center center">
+          {{ player.win }}
+        </div>
+        <div class="ladder-cell-lose" fxFlex="10" fxLayoutAlign="center center">
+          {{ player.lose }}
+        </div>
+        <div class="ladder-cell-draw" fxFlex="10" fxLayoutAlign="center center">
+          {{ player.draw }}
+        </div>
+        <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">
+          {{
+            player.games_played
+              ? player.win / player.games_played
+              : (0 | number : "1.0-2")
+          }}
         </div>
         <div class="ladder-cell" fxFlex="15" fxLayoutAlign="center center">
-          <button *ngIf="isNextFour(player)" class="action-button" matTooltip="Challenge" matTooltipPosition="after">
-            <mat-icon class="challenge-icon">sports_martial_arts</mat-icon>
+          <button
+            *ngIf="isNextFour(player)"
+            class="action-button"
+            matTooltip="Challenge"
+            matTooltipPosition="after"
+          >
+            <span class="mdi--chess-queen"></span>
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
