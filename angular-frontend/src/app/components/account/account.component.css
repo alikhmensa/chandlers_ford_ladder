@@ -35,6 +35,7 @@ mat-toolbar {
   align-items: center;
   margin-bottom: 2rem;
   margin-top: 2rem;
+  text-transform: uppercase;
 }
 
 .account-icon {

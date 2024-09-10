@@ -1,102 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/player/users.service';
 
 @Component({
-  selector: 'app-Account',
-  templateUrl: './Account.component.html',
-  styleUrls: ['./Account.component.css'],
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
 })
-export class AccountComponent {
-  displayedColumns: string[] = [
-    'rank',
-    'name',
-    'points',
-    'gp',
-    'win',
-    'lose',
-    'draw',
-    'winPercentage',
-    'actions',
-  ];
-  players = [
-    {
-      rank: 1,
-      name: 'Player1',
-      points: 12,
-      gp: 4,
-      win: 4,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 2,
-      name: 'Player2',
-      points: 10,
-      gp: 4,
-      win: 3,
-      lose: 1,
-      draw: 0,
-      winPercentage: '75%',
-    },
-    {
-      rank: 3,
-      name: 'Player3',
-      points: 5,
-      gp: 3,
-      win: 1,
-      lose: 2,
-      draw: 0,
-      winPercentage: '33.3%',
-    },
-    {
-      rank: 4,
-      name: 'Player5',
-      points: 3,
-      gp: 3,
-      win: 0,
-      lose: 3,
-      draw: 0,
-      winPercentage: '0%',
-    },
-    {
-      rank: 5,
-      name: 'Player7',
-      points: 3,
-      gp: 1,
-      win: 1,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 6,
-      name: 'Player8',
-      points: 3,
-      gp: 1,
-      win: 1,
-      lose: 0,
-      draw: 0,
-      winPercentage: '100%',
-    },
-    {
-      rank: 7,
-      name: 'Player4',
-      points: 2,
-      gp: 2,
-      win: 0,
-      lose: 2,
-      draw: 0,
-      winPercentage: '0%',
-    },
-    {
-      rank: 8,
-      name: 'Player6',
-      points: 2,
-      gp: 2,
-      win: 0,
-      lose: 2,
-      draw: 0,
-      winPercentage: '0%',
-    },
-  ];
+export class AccountComponent implements OnInit {
+  players: any[] = [];
+  tournamentId: any;
+  currentUser: any = null;
+  currentUserTournamentInfo: any = null; // Stores tournament-specific info like rank, win, lose, etc.
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.tournamentId = 1;
+    this.loadPlayers();
+    this.loadCurrentUser();
+  }
+
+  // Fetches all players' data for the tournament
+  loadPlayers() {
+    this.userService.getUsersTournamentStats(this.tournamentId).subscribe(
+      (data) => {
+        this.players = data;
+        console.log('Players:', this.players);
+        // Try to map current user's tournament info after players are loaded
+        this.mapCurrentUserTournamentInfo();
+      },
+      (error) => {
+        console.error('Error fetching players:', error);
+      }
+    );
+  }
+
+  // Fetches current user's basic info
+  loadCurrentUser() {
+    this.userService.getCurrentUser().subscribe(
+      (user) => {
+        this.currentUser = user;
+        console.log('Current User:', this.currentUser);
+        // Try to map current user's tournament info after current user is loaded
+        this.mapCurrentUserTournamentInfo();
+      },
+      (error) => {
+        console.error('Error fetching current user:', error);
+      }
+    );
+  }
+
+  // Maps the current user's tournament stats from the players array
+  mapCurrentUserTournamentInfo() {
+    if (this.players.length > 0 && this.currentUser) {
+      const matchedPlayer = this.players.find(
+        (player) => player.fullname === this.currentUser.full_name
+      );
+      if (matchedPlayer) {
+        this.currentUserTournamentInfo = matchedPlayer;
+        console.log(
+          'Current User Tournament Info:',
+          this.currentUserTournamentInfo
+        );
+      } else {
+        console.error(
+          'No matching player found for the current user in the players list.'
+        );
+      }
+    }
+  }
 }

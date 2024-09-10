@@ -3,7 +3,9 @@
 <div class="account-container">
   <div class="welcome-section">
     <mat-icon>account_circle</mat-icon>
-    <h1 class="welcome-text">HELLO, ALIKHAN</h1>
+    <h1 class="welcome-text">
+      HELLO, {{ currentUserTournamentInfo.full_name }}
+    </h1>
   </div>
 
   <div class="account-info-grid">
@@ -31,19 +33,21 @@
       <h2>GAME RECORD</h2>
       <div class="record-stats">
         <div class="stat-item">
-          <div class="stat-value">5</div>
+          <div class="stat-value">
+            {{ currentUserTournamentInfo.games_played }}
+          </div>
           <div class="stat-label">GAMES</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">4</div>
+          <div class="stat-value">{{ currentUserTournamentInfo.win }}</div>
           <div class="stat-label">WINS</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">0</div>
+          <div class="stat-value">{{ currentUserTournamentInfo.lose }}</div>
           <div class="stat-label">LOSSES</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">1</div>
+          <div class="stat-value">{{ currentUserTournamentInfo.draw }}</div>
           <div class="stat-label">TIES</div>
         </div>
       </div>
@@ -51,7 +55,7 @@
 
     <div class="rank">
       <h2>YOUR RANK</h2>
-      <div class="rank-value">#10</div>
+      <div class="rank-value">{{ currentUserTournamentInfo.rank }}</div>
     </div>
   </div>
 </div>
