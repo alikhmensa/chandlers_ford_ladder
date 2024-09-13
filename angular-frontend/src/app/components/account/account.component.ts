@@ -40,7 +40,6 @@ export class AccountComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user) => {
         this.currentUser = user;
-        console.log('Current User:', this.currentUser);
         // Try to map current user's tournament info after current user is loaded
         this.mapCurrentUserTournamentInfo();
       },
@@ -54,7 +53,7 @@ export class AccountComponent implements OnInit {
   mapCurrentUserTournamentInfo() {
     if (this.players.length > 0 && this.currentUser) {
       const matchedPlayer = this.players.find(
-        (player) => player.fullname === this.currentUser.full_name
+        (player) => player.email === this.currentUser.email
       );
       if (matchedPlayer) {
         this.currentUserTournamentInfo = matchedPlayer;

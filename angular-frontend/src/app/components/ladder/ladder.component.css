@@ -94,7 +94,7 @@ body {
 }
 
 .ladder-row:hover {
-  background-color: rgba(207, 216, 220, 0.1); /* Light grey hover effect */
+  background-color: rgba(207, 216, 220, 0.25); /* Light grey hover effect */
 }
 
 .ladder-cell {
@@ -173,20 +173,10 @@ body {
 }
 
 .current-user-row {
-  background-color: rgba(
-    186,
-    186,
-    186,
-    0.8
-  ); /* Light orange for current user */
+  background-color:  rgba(178, 201, 237, 0.3); 
 }
 .current-user-row:hover {
-  background-color: rgba(
-    233,
-    233,
-    233,
-    0.8
-  ); /* Light orange for current user */
+  background-color: rgba(178, 201, 237, 0.6); 
 }
 
 .challenge-icon {

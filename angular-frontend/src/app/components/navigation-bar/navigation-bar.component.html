@@ -1,9 +1,23 @@
 <mat-toolbar color="primary">
-  <span>CHANDLERS FORD TOURNAMENT</span>
+  <span>CHANDLERS FORD TOURNAMENTS</span>
   <span class="spacer"></span>
   <nav class="top-nav">
-    <a routerLink="/account" routerLinkActive="active-link">MY ACCOUNT</a>
     <a routerLink="/ladder" routerLinkActive="active-link">LADDER</a>
+    <a routerLink="/account" routerLinkActive="active-link">MY ACCOUNT</a>
     <a routerLink="/rules" routerLinkActive="active-link">RULES</a>
   </nav>
+  <mat-icon
+    (click)="logout()"
+    matToolTip="Log out"
+    style="
+      cursor: pointer;
+      margin-left: 30px;
+      margin-right: -15px;
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+    "
+  >
+    logout
+  </mat-icon>
 </mat-toolbar>

@@ -33,3 +33,28 @@ CREATE TABLE `user_tournament` (
   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`tournament_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE challenge_requests (
+    challenge_id INT AUTO_INCREMENT PRIMARY KEY,
+    challenger_id INT NOT NULL,
+    challenged_id INT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('accepted', 'rejected') DEFAULT NULL,
+    response_reason VARCHAR(255),
+    response_time DATETIME
+);
+ALTER TABLE challenge_requests
+MODIFY status ENUM('accepted', 'rejected', 'cancelled') DEFAULT NULL;
+
+
+CREATE TABLE matches (
+    match_id INT AUTO_INCREMENT PRIMARY KEY,
+    white_user_id INT NOT NULL,
+    black_user_id INT NOT NULL,
+    result ENUM('white_win', 'black_win', 'draw') NOT NULL,
+    challenge_id INT,
+    played_at DATE NOT NULL,
+    FOREIGN KEY (white_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (black_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (challenge_id) REFERENCES challenge_requests(challenge_id)
+);
