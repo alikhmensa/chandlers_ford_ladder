@@ -1,0 +1,80 @@
+/* Main Container */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tournament Info */
+.tournament-info {
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.tournament-info p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Ladder Table */
+.ladder-table {
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.see-more {
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.see-more:hover {
+  text-decoration: underline;
+}
+
+/* Tournament Rules */
+.tournament-rules {
+  margin-top: 40px;
+}
+
+.rules-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rules-list li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.rules-list li:before {
+  content: "• "; /* Adding a bullet before each rule */
+  font-weight: bold;
+}

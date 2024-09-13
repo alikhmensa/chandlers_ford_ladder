@@ -20,7 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-
+import { RulesComponent } from './components/rules/rules.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
     RegisterComponent,
     LadderComponent,
     AccountComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    RulesComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +47,7 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
     ReactiveFormsModule, // Ensure AppRoutingModule is included here
     MatTableModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
