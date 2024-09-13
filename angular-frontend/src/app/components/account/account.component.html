@@ -1,8 +1,7 @@
 <app-navigation-bar></app-navigation-bar>
 
 <div class="account-container">
-  <div class="welcome-section">
-    <mat-icon>account_circle</mat-icon>
+  <div class="welcome-section" *ngIf="currentUserTournamentInfo">
     <h1 class="welcome-text">
       HELLO, {{ currentUserTournamentInfo.full_name }}
     </h1>
@@ -31,7 +30,7 @@
 
     <div class="game-record">
       <h2>GAME RECORD</h2>
-      <div class="record-stats">
+      <div class="record-stats"  *ngIf="currentUserTournamentInfo">
         <div class="stat-item">
           <div class="stat-value">
             {{ currentUserTournamentInfo.games_played }}
@@ -53,7 +52,7 @@
       </div>
     </div>
 
-    <div class="rank">
+    <div class="rank" *ngIf="currentUserTournamentInfo">
       <h2>YOUR RANK</h2>
       <div class="rank-value">{{ currentUserTournamentInfo.rank }}</div>
     </div>

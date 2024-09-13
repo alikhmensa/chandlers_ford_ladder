@@ -33,7 +33,48 @@ export class UserService {
     } else {
       throw new Error('No access token found');
     }
-
   }
 
+  createChallenge(challengerEmail: string, challengedEmail: string): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      const body = {
+        challenger_email: challengerEmail,
+        challenged_email: challengedEmail
+      };
+      return this.http.post<any>(`${this.baseUrl}/challenge`, body, { headers });
+    } else {
+      throw new Error('No access token found');
+    }
+  }
+
+  checkChallengeEligibility(challengerEmail: string, challengedEmail: string): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      const body = {
+        challenger_email: challengerEmail,
+        challenged_email: challengedEmail
+      };
+      return this.http.post<any>(`${this.baseUrl}/challenge/eligibility`, body, { headers });
+    } else {
+      throw new Error('No access token found');
+    }
+  }
+  cancelChallenge(challengerEmail: string, challengedEmail: string): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      const body = {
+        challenger_email: challengerEmail,
+        challenged_email: challengedEmail
+      };
+      return this.http.post<any>(`${this.baseUrl}/challenge/cancel`, body, { headers });
+    } else {
+      throw new Error('No access token found');
+    }
+  }
+  
 }
+

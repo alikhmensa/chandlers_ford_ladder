@@ -103,20 +103,36 @@
         <div class="ladder-cell" fxFlex="10" fxLayoutAlign="center center">
           {{
             player.games_played
-              ? player.win / player.games_played
+              ? player.win / player.games_played * 100 
               : (0 | number : "1.0-2")
           }}
+          %
         </div>
         <div class="ladder-cell" fxFlex="15" fxLayoutAlign="center center">
+          <!-- Show 'X' icon if there's a pending challenge -->
           <button
-            *ngIf="isNextFour(player)"
-            class="action-button"
-            matTooltip="Challenge"
+            *ngIf="isNextFour(player) && player.hasPendingChallenge"
+            mat-icon-button
+            matTooltip="You already have a pending challenge request. Click to cancel the challenge"
             matTooltipPosition="after"
+            (click)="cancelChallenge(player)"
+          >
+            <mat-icon style="color: rgb(193, 78, 78); font-size: 25px; height: 25px; width: 25px;">cancel</mat-icon>
+          </button>
+                
+          <!-- Show challenge button if eligible -->
+          <button
+            *ngIf="isNextFour(player) && !player.hasPendingChallenge"
+            class="action-button"
+            matTooltip="{{ player.isEligible ? 'Challenge' : player.eligibilityReason || 'You cannot challenge this player.' }}"
+            matTooltipPosition="after"
+            (click)="challenge(player)"
+            [disabled]="!player.isEligible"
+            [ngStyle]="{ 'opacity': !player.isEligible ? '0.3' : '1' }"
           >
             <span class="mdi--chess-queen"></span>
-          </button>
-        </div>
+          </button>        
+        </div>        
       </div>
     </div>
   </div>
