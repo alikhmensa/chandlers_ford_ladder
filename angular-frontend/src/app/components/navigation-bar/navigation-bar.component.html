@@ -3,7 +3,13 @@
   <span class="spacer"></span>
   <nav class="top-nav">
     <a routerLink="/ladder" routerLinkActive="active-link">LADDER</a>
-    <a routerLink="/account" routerLinkActive="active-link">MY ACCOUNT</a>
+    
+    <!-- MY ACCOUNT link with notifications badge -->
+    <a routerLink="/account" routerLinkActive="active-link" class="nav-item">
+      MY ACCOUNT
+      <span *ngIf="notifications > 0" class="notification-badge">{{ notifications }}</span>
+    </a>
+    
     <a routerLink="/rules" routerLinkActive="active-link">RULES</a>
   </nav>
   <mat-icon

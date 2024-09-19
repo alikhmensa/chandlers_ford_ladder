@@ -89,9 +89,9 @@ def user_challenges(userEmail):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
 
-        # Fetch challenges where the user is either the challenger or challenged
+        # Fetch challenges with opponent's email
         cursor.execute('''
-            SELECT u_opponent.full_name, 'CHALLENGER' AS role
+            SELECT u_opponent.full_name, u_opponent.email AS opponent_email, 'CHALLENGER' AS role
             FROM challenge_requests cr 
             LEFT JOIN users ui ON cr.challenger_id = ui.user_id
             LEFT JOIN users u_opponent ON cr.challenged_id = u_opponent.user_id
@@ -99,19 +99,19 @@ def user_challenges(userEmail):
 
             UNION
 
-            SELECT u_opponent.full_name, 'CHALLENGED' AS role
+            SELECT u_opponent.full_name, u_opponent.email AS opponent_email, 'CHALLENGED' AS role
             FROM challenge_requests cr 
             LEFT JOIN users uo ON cr.challenged_id = uo.user_id
             LEFT JOIN users u_opponent ON cr.challenger_id = u_opponent.user_id
             WHERE uo.email = %s AND cr.status IS NULL
         ''', (userEmail, userEmail))
-        
         userChallenges = cursor.fetchall()
         cursor.close()
         conn.close()
         return jsonify(userChallenges), 200
     except Exception as e:
         return jsonify({'message': 'Failed to fetch user challenges', 'error': str(e)}), 500
+
     
 
 @users_bp.route('/challenge', methods=['POST'])
@@ -288,3 +288,149 @@ def cancel_challenge():
 
     except Exception as e:
         return jsonify({'message': 'Failed to cancel challenge', 'error': str(e)}), 500
+
+@users_bp.route('/challenge/accept', methods=['POST'])
+@jwt_required()
+def accept_challenge():
+    try:
+        data = request.json
+        challenger_email = data.get('challenger_email')
+        challenged_email = data.get('challenged_email')
+
+        if not challenger_email or not challenged_email:
+            return jsonify({'message': 'Both challenger_email and challenged_email are required.'}), 400
+
+        # Fetch user IDs
+        challenger = get_user_by_email(challenger_email)
+        challenged = get_user_by_email(challenged_email)
+
+        if not challenger or not challenged:
+            return jsonify({'message': 'Invalid emails provided.'}), 404
+
+        # Update challenge status to 'accepted'
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE challenge_requests
+            SET status = 'accepted', response_time = NOW()
+            WHERE challenger_id = %s AND challenged_id = %s AND status IS NULL
+        ''', (challenger['user_id'], challenged['user_id']))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Challenge accepted successfully.'}), 200
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to accept challenge', 'error': str(e)}), 500
+
+@users_bp.route('/challenge/decline', methods=['POST'])
+@jwt_required()
+def decline_challenge():
+    try:
+        data = request.json
+        challenger_email = data.get('challenger_email')
+        challenged_email = data.get('challenged_email')
+        response_reason = data.get('response_reason')
+
+        if not challenger_email or not challenged_email or not response_reason:
+            return jsonify({'message': 'All fields are required.'}), 400
+
+        # Fetch user IDs
+        challenger = get_user_by_email(challenger_email)
+        challenged = get_user_by_email(challenged_email)
+
+        if not challenger or not challenged:
+            return jsonify({'message': 'Invalid emails provided.'}), 404
+
+        # Update challenge status to 'declined' and add reason
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE challenge_requests
+            SET status = 'rejected', response_reason = %s, response_time = NOW()
+            WHERE challenger_id = %s AND challenged_id = %s AND status IS NULL
+        ''', (response_reason, challenger['user_id'], challenged['user_id']))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Challenge declined successfully.'}), 200
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to decline challenge', 'error': str(e)}), 500
+
+@users_bp.route('/scheduled-game/<string:userEmail>', methods=['GET'])
+@jwt_required()
+def get_scheduled_game(userEmail):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Fetch the accepted challenge without a match associated
+        cursor.execute('''
+            SELECT 
+                cr.*, 
+                IF(ui.email = %s, u_opponent.full_name, ui.full_name) AS opponent_name,
+                IF(ui.email = %s, 'challenger', 'challenged') AS user_role
+            FROM challenge_requests cr
+            LEFT JOIN users ui ON cr.challenger_id = ui.user_id
+            LEFT JOIN users u_opponent ON cr.challenged_id = u_opponent.user_id
+            WHERE 
+                (ui.email = %s OR u_opponent.email = %s)
+                AND cr.status = 'accepted'
+                AND NOT EXISTS (
+                    SELECT 1 FROM matches m WHERE m.challenge_id = cr.challenge_id
+                )
+        ''', (userEmail, userEmail, userEmail, userEmail))
+        
+        scheduled_game = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        if scheduled_game:
+            # Calculate the next Tuesday date
+            from datetime import datetime, timedelta
+            today = datetime.today()
+            days_until_tuesday = (1 - today.weekday() + 7) % 7  # 0=Monday, 1=Tuesday,...,6=Sunday
+            if days_until_tuesday == 0:
+                days_until_tuesday = 7
+            next_tuesday = today + timedelta(days=days_until_tuesday)
+
+            # Add the next Tuesday date to the result
+            scheduled_game['scheduled_date'] = next_tuesday.strftime('%Y-%m-%d')
+            return jsonify(scheduled_game), 200
+        else:
+            return jsonify({'message': 'No scheduled game found.'}), 404
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to fetch scheduled game', 'error': str(e)}), 500
+
+@users_bp.route('/scheduled-game/cancel', methods=['POST'])
+@jwt_required()
+def cancel_scheduled_game():
+    try:
+        data = request.json
+        challenge_id = data.get('challenge_id')
+        response_reason = data.get('response_reason')
+
+        if not challenge_id or not response_reason:
+            return jsonify({'message': 'challenge_id and response_reason are required.'}), 400
+
+        # Update the challenge status to 'cancelled' and add the reason
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE challenge_requests
+            SET status = 'cancelled', response_reason = %s, response_time = NOW()
+            WHERE challenge_id = %s AND status = 'accepted'
+        ''', (response_reason, challenge_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Scheduled game cancelled successfully.'}), 200
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to cancel scheduled game', 'error': str(e)}), 500
+

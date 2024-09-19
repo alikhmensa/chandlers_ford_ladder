@@ -8,6 +8,17 @@
   </div>
 
   <div class="account-info-grid">
+    <div class="scheduled-game-container" *ngIf="scheduledGame">
+      <h2>Scheduled Game</h2>
+      <p>
+        <strong>Opponent:</strong> {{ scheduledGame.opponent_name }}
+      </p>
+      <p>
+        <strong>Date:</strong> {{ scheduledGame.scheduled_date }}
+      </p>
+      <button mat-raised-button color="warn" (click)="cancelScheduledGame()">Cancel Game</button>
+    </div>
+
     <!-- Incoming Challenges Section -->
     <div class="challenge-notifications">
       <h2>INCOMING CHALLENGES</h2>
@@ -52,6 +63,7 @@
       </ng-template>
     </div>
 
+
     <!-- Game Record Section -->
     <div class="game-record" *ngIf="currentUserTournamentInfo">
       <h2>GAME RECORD</h2>
@@ -78,7 +90,7 @@
     <!-- Rank Section -->
     <div class="rank" *ngIf="currentUserTournamentInfo">
       <h2>YOUR RANK</h2>
-      <div class="rank-value" fxLayoutAlign="center center">{{ currentUserTournamentInfo.rank }}</div>
+      <div class="rank-value">{{ currentUserTournamentInfo.rank }}</div>
     </div>
   </div>
 </div>

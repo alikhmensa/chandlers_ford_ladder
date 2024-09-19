@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/player/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeclineChallengeDialogComponent } from '../decline-challenge-dialog/decline-challenge-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-account',
@@ -14,8 +16,9 @@ export class AccountComponent implements OnInit {
   currentUserTournamentInfo: any = null; // Stores tournament-specific info like rank, win, lose, etc.
   incomingChallenges: any[] = []; // Stores incoming challenges for the current user
   outgoingChallenges: any[] = []; // Stores outgoing challenges from the current user
+  scheduledGame: any = null; // Stores scheduled game info
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {}
+  constructor(private userService: UserService, private snackBar: MatSnackBar,  private dialog: MatDialog) {}
 
   ngOnInit() {
     this.tournamentId = 1;
@@ -43,6 +46,7 @@ export class AccountComponent implements OnInit {
         this.currentUser = user;
         this.mapCurrentUserTournamentInfo();
         this.loadPendingChallenges();
+        this.loadScheduledGame(); // Load scheduled game
       },
       (error) => {
         console.error('Error fetching current user:', error);
@@ -94,15 +98,88 @@ export class AccountComponent implements OnInit {
     );
   }
 
-  // Accept a challenge
   acceptChallenge(challenge: any) {
-    // Add logic here to accept the challenge
-    this.snackBar.open('Challenge accepted!', 'Close', { duration: 3000 });
+    if (!this.currentUser || !challenge) return;
+  
+    const challengerEmail = challenge.opponent_email;
+    const challengedEmail = this.currentUser.email;
+  
+    this.userService.acceptChallenge(challengerEmail, challengedEmail).subscribe(
+      () => {
+        this.loadCurrentUser();
+        this.snackBar.open('Challenge accepted!', 'Close', { duration: 3000 });
+      },
+      (error) => {
+        console.error('Error accepting challenge:', error);
+        this.snackBar.open('Error accepting challenge.', 'Close', { duration: 3000 });
+      }
+    );
   }
 
-  // Decline a challenge
   declineChallenge(challenge: any) {
-    // Add logic here to decline the challenge
-    this.snackBar.open('Challenge declined.', 'Close', { duration: 3000 });
+    if (!this.currentUser || !challenge) return;
+
+    const dialogRef = this.dialog.open(DeclineChallengeDialogComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(reason => {
+      if (reason) {
+        const challengerEmail = challenge.opponent_email;
+        const challengedEmail = this.currentUser.email;
+
+        this.userService.declineChallenge(challengerEmail, challengedEmail, reason).subscribe(
+          () => {
+            this.loadCurrentUser();
+            this.snackBar.open('Challenge declined.', 'Close', { duration: 3000 });
+          },
+          (error) => {
+            console.error('Error declining challenge:', error);
+            this.snackBar.open('Error declining challenge.', 'Close', { duration: 3000 });
+          }
+        );
+      }
+    });
   }
+
+  // Fetch the scheduled game for the current user
+  loadScheduledGame() {
+    if (this.currentUser) {
+      this.userService.getScheduledGame(this.currentUser.email).subscribe(
+        (game) => {
+          this.scheduledGame = game;
+        },
+        (error) => {
+          console.error('Error fetching scheduled game:', error);
+          this.scheduledGame = null; // Clear if not found
+        }
+      );
+    }
+  }
+
+  cancelScheduledGame() {
+    if (this.scheduledGame) {
+      // Open the dialog to get the cancellation reason
+      const dialogRef = this.dialog.open(DeclineChallengeDialogComponent, {
+        width: '400px'
+      });
+
+      dialogRef.afterClosed().subscribe(reason => {
+        if (reason) {
+          // Call the cancel scheduled game service with the reason
+          this.userService.cancelScheduledGame(this.scheduledGame.challenge_id, reason).subscribe(
+            () => {
+              this.scheduledGame = null; // Clear the scheduled game
+              this.snackBar.open('Scheduled game cancelled successfully!', 'Close', { duration: 3000 });
+            },
+            (error) => {
+              console.error('Error cancelling scheduled game:', error);
+              this.snackBar.open('Error cancelling scheduled game.', 'Close', { duration: 3000 });
+            }
+          );
+        }
+      });
+    }
+  }
+
 }

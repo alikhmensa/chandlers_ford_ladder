@@ -25,3 +25,14 @@ mat-toolbar {
 .spacer {
     flex: 1 1 auto;
 }
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 112px;
+    color: white;
+    font-size: 12px;
+    background-color: red;
+    padding: 0.1rem 0.65rem;
+    border-radius: 50%;
+  }

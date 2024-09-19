@@ -1,0 +1,22 @@
+<div style="margin: 15px;">
+    <h3 mat-dialog-title>Decline Challenge</h3>
+    <div mat-dialog-content>
+      <p>Please select a reason for declining:</p>
+      <mat-radio-group [(ngModel)]="selectedReason">
+        <mat-radio-button *ngFor="let reason of reasons" [value]="reason">
+          {{ reason }}
+        </mat-radio-button>
+      </mat-radio-group>
+    
+      <div *ngIf="selectedReason === 'Other (specify)'" class="other-reason">
+        <mat-form-field appearance="fill">
+          <mat-label>Specify reason</mat-label>
+          <textarea matInput [(ngModel)]="otherReason"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button color="primary" [disabled]="!selectedReason" (click)="onConfirm()">Decline</button>
+    </div>
+</div>

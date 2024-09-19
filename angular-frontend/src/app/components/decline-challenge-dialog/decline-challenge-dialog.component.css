@@ -1,0 +1,13 @@
+mat-radio-button {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .other-reason {
+    margin-top: 16px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
