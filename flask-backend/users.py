@@ -81,6 +81,39 @@ def users_tournament_stats(tournament_id):
     except Exception as e:
         return jsonify({'message': 'Failed to fetch tournament stats', 'error': str(e)}), 500
     
+
+@users_bp.route('/challenges/<string:userEmail>', methods=['GET'])
+@jwt_required()
+def user_challenges(userEmail):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Fetch challenges where the user is either the challenger or challenged
+        cursor.execute('''
+            SELECT u_opponent.full_name, 'CHALLENGER' AS role
+            FROM challenge_requests cr 
+            LEFT JOIN users ui ON cr.challenger_id = ui.user_id
+            LEFT JOIN users u_opponent ON cr.challenged_id = u_opponent.user_id
+            WHERE ui.email = %s AND cr.status IS NULL
+
+            UNION
+
+            SELECT u_opponent.full_name, 'CHALLENGED' AS role
+            FROM challenge_requests cr 
+            LEFT JOIN users uo ON cr.challenged_id = uo.user_id
+            LEFT JOIN users u_opponent ON cr.challenger_id = u_opponent.user_id
+            WHERE uo.email = %s AND cr.status IS NULL
+        ''', (userEmail, userEmail))
+        
+        userChallenges = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify(userChallenges), 200
+    except Exception as e:
+        return jsonify({'message': 'Failed to fetch user challenges', 'error': str(e)}), 500
+    
+
 @users_bp.route('/challenge', methods=['POST'])
 @jwt_required()
 def create_challenge():

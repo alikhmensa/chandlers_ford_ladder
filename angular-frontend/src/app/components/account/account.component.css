@@ -144,3 +144,20 @@ mat-toolbar {
 .spacer {
   flex: 1 1 auto;
 }
+
+.challenge-icons {
+  display: flex;
+  gap: 8px; /* Adjust spacing between buttons */
+}
+
+.challenge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.challenge span {
+  flex: 1;
+}
+
