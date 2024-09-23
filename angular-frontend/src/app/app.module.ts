@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module'; // Correct import
 import { MatRadioModule } from '@angular/material/radio'; // For radio buttons
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -24,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { RulesComponent } from './components/rules/rules.component';
 import { DeclineChallengeDialogComponent } from './components/decline-challenge-dialog/decline-challenge-dialog.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { DeclineChallengeDialogComponent } from './components/decline-challenge-
     AccountComponent,
     NavigationBarComponent,
     RulesComponent,
-    DeclineChallengeDialogComponent
+    DeclineChallengeDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +52,8 @@ import { DeclineChallengeDialogComponent } from './components/decline-challenge-
     MatTableModule,
     MatIconModule,
     MatTooltipModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

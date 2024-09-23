@@ -7,90 +7,245 @@
     </h1>
   </div>
 
-  <div class="account-info-grid">
-    <div class="scheduled-game-container" *ngIf="scheduledGame">
-      <h2>Scheduled Game</h2>
-      <p>
-        <strong>Opponent:</strong> {{ scheduledGame.opponent_name }}
-      </p>
-      <p>
-        <strong>Date:</strong> {{ scheduledGame.scheduled_date }}
-      </p>
-      <button mat-raised-button color="warn" (click)="cancelScheduledGame()">Cancel Game</button>
-    </div>
+  <!-- Tab Group -->
+  <mat-tab-group>
+    <!-- Challenges Tab -->
+    <mat-tab label="Challenges">
+      <div class="mat-tab-body-wrapper">
+        <div class="challenges-tab">
+          <!-- Scheduled Game Section (Left Block) -->
+          <div class="games-container">
+            <div class="scheduled-game-class">
+              <div class="header-design">
+                <h2>SCHEDULED GAME</h2>
+              </div>
+              <p *ngIf="scheduledGame; else noScheduledGame">
+                <strong>OPPONENT:</strong> {{ scheduledGame.opponent_name }}
+                <br />
+                <br />
+                <strong>RANK:</strong> #{{ scheduledGame.opponent_rank }}
+                <br />
+              </p>
+              <div class="date-button-row">
+                <p><strong>DATE:</strong> {{ scheduledGame.scheduled_date }}</p>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  class="cancel-button"
+                  (click)="cancelScheduledGame()"
+                >
+                  CANCEL GAME
+                </button>
+              </div>
 
-    <!-- Incoming Challenges Section -->
-    <div class="challenge-notifications">
-      <h2>INCOMING CHALLENGES</h2>
-      <div *ngIf="incomingChallenges.length > 0; else noIncomingChallenges">
-        <div class="challenge" *ngFor="let challenge of incomingChallenges">
-          <span>{{ challenge.full_name }}</span>
-          <div class="challenge-icons">
-            <!-- Accept Button -->
-            <button mat-icon-button color="primary" matTooltip="Accept" (click)="acceptChallenge(challenge)">
-              <mat-icon>check_circle</mat-icon>
-            </button>
-            <!-- Decline Button -->
-            <button mat-icon-button color="warn" matTooltip="Decline" (click)="declineChallenge(challenge)">
-              <mat-icon>cancel</mat-icon>
-            </button>
+              <ng-template #noScheduledGame>
+                <p>No active challenges yet</p>
+              </ng-template>
+            </div>
+
+            <div class="match-history-class">
+              <div class="header-design">
+                <h2>MATCH HISTORY</h2>
+              </div>
+              <p>n/a</p>
+            </div>
+          </div>
+
+          <!-- Incoming and Outgoing Challenges (Right Block) -->
+          <div class="challenges-container">
+            <!-- Incoming Challenges -->
+            <div
+              [ngClass]="{
+                'incoming-challenges-class': true,
+                expanded: showAllIncomingChallenges
+              }"
+            >
+              <div class="header-design">
+                <h2>INCOMING CHALLENGES</h2>
+              </div>
+              <div
+                *ngIf="incomingChallenges.length > 0; else noIncomingChallenges"
+              >
+                <!-- Display the first 2 challenges initially -->
+                <div
+                  class="challenge"
+                  *ngFor="let challenge of incomingChallenges | slice : 0 : 2"
+                >
+                  <span>{{ challenge.full_name }}</span>
+                  <div class="challenge-buttons">
+                    <button
+                      mat-button
+                      class="accept-button"
+                      (click)="acceptChallenge(challenge)"
+                    >
+                      ACCEPT
+                    </button>
+                    <button
+                      mat-button
+                      class="decline-button"
+                      (click)="declineChallenge(challenge)"
+                    >
+                      DECLINE
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Display remaining challenges when "Show All" is clicked -->
+                <div *ngIf="showAllIncomingChallenges">
+                  <div
+                    class="challenge"
+                    *ngFor="let challenge of incomingChallenges | slice : 2"
+                  >
+                    <span>{{ challenge.full_name }}</span>
+                    <div class="challenge-buttons">
+                      <button
+                        mat-button
+                        class="accept-button"
+                        (click)="acceptChallenge(challenge)"
+                      >
+                        ACCEPT
+                      </button>
+                      <button
+                        mat-button
+                        class="decline-button"
+                        (click)="declineChallenge(challenge)"
+                      >
+                        DECLINE
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Show All/Show Less Button -->
+                <div class="show-all-button-container">
+                  <a
+                    *ngIf="incomingChallenges.length > 2"
+                    (click)="toggleShowAllIncoming()"
+                    class="show-all-button"
+                  >
+                    {{ showAllIncomingChallenges ? "Show less" : "Show all" }}
+                  </a>
+                </div>
+              </div>
+
+              <!-- Display if no incoming challenges -->
+              <ng-template #noIncomingChallenges>
+                <p>No incoming challenges.</p>
+              </ng-template>
+            </div>
+
+            <!-- Outgoing Challenges -->
+            <div
+              [ngClass]="{
+                'outgoing-challenges-class': true,
+                expanded: showAllOutgoingChallenges
+              }"
+            >
+              <div class="header-design">
+                <h2>OUTGOING CHALLENGES</h2>
+              </div>
+              <div
+                *ngIf="outgoingChallenges.length > 0; else noOutgoingChallenges"
+              >
+                <div
+                  class="challenge"
+                  *ngFor="let challenge of outgoingChallenges | slice : 0 : 2"
+                >
+                  <span>{{ challenge.full_name }}</span>
+                  <div class="challenge-buttons">
+                    <button
+                      mat-button
+                      class="decline-button"
+                      (click)="cancelChallenge(challenge)"
+                    >
+                      CANCEL
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="showAllOutgoingChallenges">
+                  <div
+                    class="challenge"
+                    *ngFor="let challenge of outgoingChallenges | slice : 2"
+                  >
+                    <span>{{ challenge.full_name }}</span>
+                    <div class="challenge-buttons">
+                      <button
+                        mat-button
+                        class="decline-button"
+                        (click)="cancelChallenge(challenge)"
+                      >
+                        CANCEL
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Show All/Show Less Button -->
+                <div class="show-all-button-container">
+                  <a
+                    *ngIf="outgoingChallenges.length > 2"
+                    (click)="toggleShowAllOutgoing()"
+                    class="show-all-button"
+                  >
+                    {{ showAllOutgoingChallenges ? "Show less" : "Show all" }}
+                  </a>
+                </div>
+              </div>
+              <ng-template #noOutgoingChallenges>
+                <p>No outgoing challenges.</p>
+              </ng-template>
+            </div>
           </div>
         </div>
-        <div class="notification-badge">{{ incomingChallenges.length }}</div>
       </div>
-      <ng-template #noIncomingChallenges>
-        <p>No incoming challenges.</p>
-      </ng-template>
-    </div>
+    </mat-tab>
 
-    <!-- Outgoing Challenges Section -->
-    <div class="challenge-notifications">
-      <h2>OUTGOING CHALLENGES</h2>
-      <div *ngIf="outgoingChallenges.length > 0; else noOutgoingChallenges">
-        <div class="challenge" *ngFor="let challenge of outgoingChallenges">
-          <span>{{ challenge.full_name }}</span>
-          <div class="challenge-icons">
-            <!-- Cancel Button -->
-            <button mat-icon-button color="warn" matTooltip="Cancel" (click)="cancelChallenge(challenge)">
-              <mat-icon>clear</mat-icon>
-            </button>
+    <!-- Statistics Tab -->
+    <mat-tab label="Stats">
+      <div class="mat-tab-body-wrapper">
+        <div class="stats-tab">
+          <!-- Game Record Section -->
+          <div class="game-record-class">
+            <div class="s-header-design">
+              <h2>GAME RECORD</h2>
+            </div>
+            <div class="record-stats">
+              <div class="stat-item large-stat">
+                <div class="stat-value">
+                  {{ currentUserTournamentInfo.games_played }}
+                </div>
+                <div class="stat-label">GAMES</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">
+                  {{ currentUserTournamentInfo.win }}
+                </div>
+                <div class="stat-label">WINS</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">
+                  {{ currentUserTournamentInfo.lose }}
+                </div>
+                <div class="stat-label">LOSSES</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">
+                  {{ currentUserTournamentInfo.draw }}
+                </div>
+                <div class="stat-label">TIES</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rank Section -->
+          <div class="rank-class">
+            <div class="s-header-design">
+              <h2>YOUR RANK</h2>
+            </div>
+            <div class="rank-value">#{{ currentUserTournamentInfo.rank }}</div>
           </div>
         </div>
-        <div class="notification-badge">{{ outgoingChallenges.length }}</div>
       </div>
-      <ng-template #noOutgoingChallenges>
-        <p>No outgoing challenges.</p>
-      </ng-template>
-    </div>
-
-
-    <!-- Game Record Section -->
-    <div class="game-record" *ngIf="currentUserTournamentInfo">
-      <h2>GAME RECORD</h2>
-      <div class="record-stats">
-        <div class="stat-item">
-          <div class="stat-value">{{ currentUserTournamentInfo.games_played }}</div>
-          <div class="stat-label">GAMES</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">{{ currentUserTournamentInfo.win }}</div>
-          <div class="stat-label">WINS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">{{ currentUserTournamentInfo.lose }}</div>
-          <div class="stat-label">LOSSES</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">{{ currentUserTournamentInfo.draw }}</div>
-          <div class="stat-label">TIES</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Rank Section -->
-    <div class="rank" *ngIf="currentUserTournamentInfo">
-      <h2>YOUR RANK</h2>
-      <div class="rank-value">{{ currentUserTournamentInfo.rank }}</div>
-    </div>
-  </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

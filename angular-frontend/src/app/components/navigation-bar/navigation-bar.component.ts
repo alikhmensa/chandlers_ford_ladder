@@ -25,7 +25,7 @@ export class NavigationBarComponent implements OnInit {
   // Fetch incoming challenges to determine the number of notifications
   loadNotifications() {
     const currentUserEmail = this.currentUser.email;
-
+    
     if (currentUserEmail) {
       this.userService.getUserChallenges(currentUserEmail).subscribe(
         (challenges) => {

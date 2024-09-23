@@ -7,6 +7,7 @@ import { AccountComponent } from './components/account/account.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RulesComponent } from './components/rules/rules.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

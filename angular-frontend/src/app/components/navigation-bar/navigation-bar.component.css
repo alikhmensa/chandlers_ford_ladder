@@ -1,38 +1,48 @@
 mat-toolbar {
-    background-color: #333;
-    color: rgb(255, 255, 255);
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    font-weight: bold;
+  background-color: #333;
+  color: rgb(255, 255, 255);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 550;
 }
 
 .top-nav a {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    margin-left: 20px;
-    font-size: 0.75rem;
-    margin-left: 30px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: 550;
+  margin-left: 20px;
+  font-size: 0.75rem;
+  margin-left: 30px;
 }
 
 .top-nav a.active-link {
-    border-bottom: 1.5px solid white;
-    /* Add other styles as needed */
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .notification-badge {
-    position: absolute;
-    top: 5px;
-    right: 112px;
-    color: white;
-    font-size: 12px;
-    background-color: red;
-    padding: 0.1rem 0.65rem;
-    border-radius: 50%;
-  }
+  position: absolute;
+  top: -4px; /* Adjust the vertical position */
+  right: -18px; /* Adjust the horizontal position */
+  color: white;
+  font-size: 10px; /* Smaller font size */
+  background-color: red;
+  padding: 0.2rem; /* Smaller padding */
+  height: 11px; /* Ensure it's a perfect circle */
+  width: 11px; /* Same as height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Make it a perfect circle */
+}
+
+.nav-item {
+  position: relative; /* So the badge can be positioned relative to this element */
+  display: inline-block;
+}

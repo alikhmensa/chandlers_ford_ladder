@@ -1,170 +1,282 @@
+/* Container Styles */
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(209, 209, 209);
 }
 
 .account-container {
   padding: 1.25rem;
 }
 
-mat-toolbar {
-  background-color: #333;
-  color: rgb(255, 255, 255);
-  padding: 0 2rem;
+.mat-tab-group {
+  background-color: #f0f0f0;
+  box-shadow: none;
+  margin-bottom: 1.5rem;
+}
+
+.mat-tab-body-wrapper {
+  margin-top: 2rem;
+}
+
+/* Style for individual tabs */
+::ng-deep .mat-tab-label {
+  font-weight: bold;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid #333 !important;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: #333;
+  margin-right: 10px;
+  padding: 6px 12px;
+}
+
+.mat-tab-label-active {
+  background-color: #ffffff;
+  border-bottom: 1px solid transparent;
+  color: #000;
+}
+
+.mat-tab-label:not(.mat-tab-label-active) {
+  background-color: #e0e0e0;
+  color: #666;
+}
+
+.mat-tab-label .mat-ripple-element {
+  display: none !important;
+}
+
+.mat-tab-header {
+  border-bottom: 1px solid #333;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px; /* Adjust the vertical position */
+  right: -18px; /* Adjust the horizontal position */
+  color: white;
+  font-size: 10px; /* Smaller font size */
+  background-color: red;
+  padding: 0.2rem; /* Smaller padding */
+  height: 11px; /* Ensure it's a perfect circle */
+  width: 11px; /* Same as height */
   display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.top-nav a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  margin-left: 20px;
-  font-size: 0.75rem;
-  margin-left: 30px;
-}
-
-.top-nav a.active-link {
-  border-bottom: 1.5px solid white;
-  /* Add other styles as needed */
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Make it a perfect circle */
 }
 
 .welcome-section {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   text-transform: uppercase;
 }
 
-.account-icon {
-  font-size: 60px;
-  margin-right: 1rem;
-}
-
 .welcome-text {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: bold;
   margin-top: 1rem;
 }
 
-.account-info-grid {
+/* Challenges Tab Layout */
+.challenges-tab {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+  align-items: stretch;
 }
 
-.challenge-notifications,
-.game-record,
-.rank {
-  background-color: #e0e0e0;
-  padding: 1.5rem;
-  border-radius: 8px;
+.date-button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align button and date vertically */
+}
+
+.games-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.challenges-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.scheduled-game-class p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cancel-button {
+  background-color: #ff8989 !important;
+  color: black !important;
+  border-radius: 0;
+  font-size: 0.7rem;
+  padding: 0.7rem;
+  height: 30px;
+  border: none;
+  margin-top: -23px;
+}
+
+/* Individual Section Styles */
+.incoming-challenges-class,
+.outgoing-challenges-class {
   position: relative;
+  background-color: #f7f7f7;
+  padding: 0.5rem 1.3rem;
+  border-radius: 8px;
+  max-height: 180px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 2px solid black;
 }
 
-.challenge-notifications h2,
-.game-record h2,
-.rank h2 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: -20px;
+.scheduled-game-class,
+.match-history-class {
+  background-color: #f7f7f7;
+  padding: 0.5rem 1.3rem;
+  border-radius: 8px;
+  max-height: 180px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 2px solid black;
 }
 
+/* Expand class for toggling sections */
+.expanded {
+  max-height: fit-content;
+}
+
+/* Challenge Section Styles */
 .challenge {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.challenge span {
-  flex: 1;
-  text-align: left;
+  margin-bottom: 0.7rem;
 }
 
 .challenge-buttons {
   display: flex;
-  gap: 0.5rem; /* Space between the buttons */
+  gap: 1rem;
+}
+
+.show-all-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.show-all-button {
+  color: black !important;
+  border-radius: 0;
+  font-size: 0.8rem;
+  padding: 0 0.4rem;
+  font-weight: 550;
+  cursor: pointer;
+}
+
+.show-all-button:hover {
+  color: black !important;
+  background-color: transparent !important;
+  text-decoration: underline;
 }
 
 .decline-button {
-  background-color: #ffcccc;
+  background-color: #ff8989;
   color: black !important;
-  font-weight: bold;
+  border-radius: 0;
+  font-size: 0.7rem;
+  width: 70px;
+  height: 30px;
 }
 
 .accept-button {
-  background-color: #ccffcc;
+  background-color: #b0ffb0;
   color: black !important;
-  font-weight: bold;
+  border-radius: 0;
+  font-size: 0.7rem;
+  width: 70px;
+  height: 30px;
 }
 
-.notification-badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: #333;
-  color: white;
-  font-size: 10px;
-  padding: 0.1rem 0.65rem;
-  border-radius: 50%;
+.stats-tab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+/* Game Record Section */
+
+.game-record-class,
+.rank-class {
+  background-color: #f7f7f7;
+  padding: 0.5rem 1.3rem;
+  border-radius: 8px;
+  max-height: 180px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 2px solid black;
+}
+
+.header-design {
+  background-color: #333333;
+  margin: -1rem -1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.header-design h2 {
+  margin-left: 1.5rem;
+  height: 43px;
+  color: #e0e0e0;
+  font-weight: 500 !important;
+  font-size: 1rem;
+}
+
+.s-header-design {
+  background-color: #333333;
+  margin: -1rem -1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.s-header-design h2 {
+  margin-left: 1.5rem;
+  height: 43px;
+  color: #e0e0e0;
+  font-weight: 500 !important;
+  font-size: 1rem;
 }
 
 .record-stats {
   display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
+  justify-content: space-around;
+  padding: 1.5rem 0;
 }
 
 .stat-item {
   text-align: center;
 }
 
+.large-stat {
+  flex: 2;
+}
+
 .stat-value {
-  font-size: 3.5rem;
-  font-weight: 400;
+  font-size: 2.5rem; /* Larger for Games */
+  font-weight: bold;
 }
 
 .stat-label {
-  font-size: 0.8rem;
-  margin-top: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .rank-value {
-  font-size: 5rem;
-  font-weight: bold;
   text-align: center;
-  margin-top: 2.4rem;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-.challenge-icons {
-  display: flex;
-  gap: 8px; /* Adjust spacing between buttons */
-}
-
-.challenge {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-}
-
-.challenge span {
-  flex: 1;
-}
-
-.scheduled-game-container {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 1rem;
 }
