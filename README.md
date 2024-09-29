@@ -90,4 +90,4 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## Contact
 
-For any queries or suggestions, feel free to reach out to me at alikhmensa@gmail.com
+For any queries or suggestions, feel free to reach out to us at alikhmensa@gmail.com or asap.serik@gmail.com
