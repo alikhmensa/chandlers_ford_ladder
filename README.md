@@ -87,10 +87,7 @@ This repository hosts a web application for managing a chess ladder competition 
 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure your code follows the style guidelines.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-For any queries or suggestions, feel free to reach out to me at your.email@example.com.
+For any queries or suggestions, feel free to reach out to me at alikhmensa@gmail.com
