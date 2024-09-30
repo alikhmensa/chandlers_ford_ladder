@@ -83,7 +83,7 @@ body {
 /* Challenges Tab Layout */
 .challenges-tab {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2fr 1fr;
   gap: 1.5rem;
   align-items: stretch;
 }
@@ -205,7 +205,7 @@ body {
 
 .stats-tab {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
 }
 /* Game Record Section */
@@ -252,7 +252,14 @@ body {
 .record-stats {
   display: flex;
   justify-content: space-around;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
+}
+
+.rank-value {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 2rem 0;
 }
 
 .stat-item {
@@ -272,11 +279,4 @@ body {
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
-}
-
-.rank-value {
-  text-align: center;
-  font-size: 3rem;
-  font-weight: bold;
-  margin-top: 1rem;
 }
