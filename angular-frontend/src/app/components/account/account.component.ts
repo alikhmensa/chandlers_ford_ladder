@@ -206,16 +206,17 @@ export class AccountComponent implements OnInit {
   loadScheduledGame() {
     if (this.currentUser) {
       this.userService.getScheduledGame(this.currentUser.email).subscribe(
-        (game) => {
-          this.scheduledGame = game;
-        },
-        (error) => {
-          console.error('Error fetching scheduled game:', error);
-          this.scheduledGame = null; // Clear if not found
-        }
+        (result) => {
+          if (result.message == 'No scheduled game found.'){
+            this.scheduledGame == null;
+          }
+          else{
+            this.scheduledGame = result;
+          }
+      }
       );
     }
-  }
+  }  
 
   cancelScheduledGame() {
     if (this.scheduledGame) {

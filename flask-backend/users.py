@@ -401,7 +401,7 @@ def get_scheduled_game(userEmail):
             scheduled_game['scheduled_date'] = next_tuesday.strftime('%Y-%m-%d')
             return jsonify(scheduled_game), 200
         else:
-            return jsonify({'message': 'No scheduled game found.'}), 404
+            return jsonify({'message': 'No scheduled game found.'}), 200
 
     except Exception as e:
         return jsonify({'message': 'Failed to fetch scheduled game', 'error': str(e)}), 500

@@ -14,7 +14,7 @@
       <div class="mat-tab-body-wrapper">
         <div class="challenges-tab">
           <!-- Scheduled Game Section (Left Block) -->
-          <div class="games-container">
+          <div *ngIf="scheduledGame" class="games-container">
             <div class="scheduled-game-class">
               <div class="header-design">
                 <h2>SCHEDULED GAME</h2>
@@ -209,7 +209,7 @@
             <div class="s-header-design">
               <h2>GAME RECORD</h2>
             </div>
-            <div class="record-stats">
+            <div *ngIf="currentUserTournamentInfo" class="record-stats">
               <div class="stat-item large-stat">
                 <div class="stat-value">
                   {{ currentUserTournamentInfo.games_played }}
@@ -238,7 +238,7 @@
           </div>
 
           <!-- Rank Section -->
-          <div class="rank-class">
+          <div *ngIf="currentUserTournamentInfo" class="rank-class">
             <div class="s-header-design">
               <h2>YOUR RANK</h2>
             </div>
