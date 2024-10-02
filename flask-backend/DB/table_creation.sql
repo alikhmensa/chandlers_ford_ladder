@@ -58,3 +58,13 @@ CREATE TABLE matches (
     FOREIGN KEY (black_user_id) REFERENCES users(user_id),
     FOREIGN KEY (challenge_id) REFERENCES challenge_requests(challenge_id)
 );
+
+
+
+
+INSERT INTO matches (white_user_id, black_user_id, result, challenge_id, played_at)
+VALUES 
+    (12, 13, 'white_win', 5, '2024-10-01'),
+    (12, 14, 'draw', 6, '2024-10-02'),
+    (12, 15, 'black_win', 7, '2024-10-03');
+    (12, 16, 'black_win', 7, '2024-10-03');

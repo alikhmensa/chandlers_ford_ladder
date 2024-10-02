@@ -433,4 +433,44 @@ def cancel_scheduled_game():
 
     except Exception as e:
         return jsonify({'message': 'Failed to cancel scheduled game', 'error': str(e)}), 500
+    
+@users_bp.route('/match-history/<string:user_email>', methods=['GET'])
+@jwt_required()
+def get_user_match_history(user_email):
+    try:
+        # Establish a database connection
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Fetch the match history for the given user (either as white or black player)
+        cursor.execute('''
+            SELECT 
+                m.match_id, 
+                m.white_user_id, 
+                m.black_user_id, 
+                m.result, 
+                m.challenge_id, 
+                m.played_at,
+                uw.full_name AS white_player,
+                ub.full_name AS black_player
+            FROM matches m
+            LEFT JOIN users uw ON m.white_user_id = uw.user_id
+            LEFT JOIN users ub ON m.black_user_id = ub.user_id
+            WHERE m.white_user_id = (SELECT user_id FROM users WHERE email = %s) 
+               OR m.black_user_id = (SELECT user_id FROM users WHERE email = %s)
+            ORDER BY m.played_at DESC
+        ''', (user_email, user_email))
+
+        match_history = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        if match_history:
+            return jsonify(match_history), 200
+        else:
+            return jsonify({'message': 'No match history found for this user.'}), 404
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to fetch match history', 'error': str(e)}), 500
+
 

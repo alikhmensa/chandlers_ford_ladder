@@ -34,6 +34,16 @@ export class UserService {
       throw new Error('No access token found');
     }
   }
+
+  getUserMatchHistory(userEmail: string): Observable<any[]> {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any[]>(`${this.baseUrl}/match-history/${userEmail}`, { headers });
+    } else {
+      throw new Error('No access token found');
+    }
+  }
   
 
   getUsersTournamentStats(tournamentId: any): Observable<any[]> {

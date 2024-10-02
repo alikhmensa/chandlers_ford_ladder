@@ -21,7 +21,7 @@
           <strong>RANK:</strong> #{{ scheduledGame.opponent_rank }}
           <br />
         </p>
-        <div class="date-button-row">
+        <div *ngIf="scheduledGame" class="date-button-row">
           <p><strong>DATE:</strong> {{ scheduledGame.scheduled_date }}</p>
           <button
             mat-raised-button
@@ -42,7 +42,37 @@
         <div class="header-design">
           <h2>MATCH HISTORY</h2>
         </div>
-        <p>n/a</p>
+        <div class="history">
+          <div *ngIf="matchHistory.length > 0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Opponent</th>
+                  <th>Date</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let match of matchHistory">
+                  <td>{{ match.opponent }}</td>
+                  <td>{{ match.played_at | date : "dd/MM/yyyy" }}</td>
+                  <td
+                    [ngClass]="{
+                      victory: match.result === 'Victory',
+                      defeat: match.result === 'Defeat',
+                      draw: match.result === 'Draw'
+                    }"
+                  >
+                    {{ match.result }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="matchHistory.length === 0">
+            <p>No match history found.</p>
+          </div>
+        </div>
       </div>
     </div>
 

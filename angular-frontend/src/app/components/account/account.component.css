@@ -83,7 +83,7 @@ body {
 /* Challenges Tab Layout */
 .challenges-tab {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1.5fr 2fr 1fr;
   gap: 1.5rem;
   align-items: stretch;
 }
@@ -129,18 +129,17 @@ body {
   background-color: #f7f7f7;
   padding: 0.5rem 1.3rem;
   border-radius: 8px;
-  max-height: 180px;
+  max-height: 200px;
   overflow: hidden;
   transition: max-height 0.3s ease;
   border: 2px solid black;
 }
 
-.scheduled-game-class,
-.match-history-class {
+.scheduled-game-class {
   background-color: #f7f7f7;
   padding: 0.5rem 1.3rem;
   border-radius: 8px;
-  max-height: 180px;
+  max-height: 200px;
   overflow: hidden;
   transition: max-height 0.3s ease;
   border: 2px solid black;
@@ -215,7 +214,7 @@ body {
   background-color: #f7f7f7;
   padding: 0.5rem 1.3rem;
   border-radius: 8px;
-  max-height: 180px;
+  max-height: 200px;
   overflow: hidden;
   transition: max-height 0.3s ease;
   border: 2px solid black;
@@ -225,6 +224,7 @@ body {
   background-color: #333333;
   margin: -1rem -1.5rem;
   margin-bottom: 1.5rem;
+  position: static;
 }
 
 .header-design h2 {
@@ -252,14 +252,14 @@ body {
 .record-stats {
   display: flex;
   justify-content: space-around;
-  padding: 2rem 0;
+  padding: 3rem 0;
 }
 
 .rank-value {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  padding: 2rem 0;
+  padding: 3rem 0;
 }
 
 .stat-item {
@@ -279,4 +279,63 @@ body {
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+/* Make the table occupy full width and align headers */
+.match-history-class table {
+  width: 100%;
+  border-collapse: collapse; /* Ensure the borders are collapsed for a cleaner look */
+}
+
+/* Align table headers to the left */
+.match-history-class table th {
+  text-align: left;
+  padding: 0.5rem;
+}
+
+/* Table cells */
+.match-history-class table td {
+  padding: 0.5rem;
+}
+
+/* Style for even spacing between columns */
+.match-history-class table th,
+.match-history-class table td {
+  width: 33%; /* Evenly distribute columns */
+}
+
+/* Conditional formatting for result values */
+.match-history-class .victory {
+  color: green;
+  font-weight: bold;
+}
+
+.match-history-class .defeat {
+  color: red;
+  font-weight: bold;
+}
+
+.match-history-class .draw {
+  color: rgb(255, 213, 0);
+  font-weight: bold;
+}
+
+.match-history-class {
+  background-color: #f7f7f7;
+  padding: 0.5rem 1.3rem;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.match-history-class .header-design {
+  height: 43px;
+}
+
+.history {
+  overflow: auto;
 }

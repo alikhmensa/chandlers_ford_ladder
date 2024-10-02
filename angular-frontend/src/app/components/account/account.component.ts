@@ -18,6 +18,7 @@ export class AccountComponent implements OnInit {
   incomingChallenges: any[] = []; // Stores incoming challenges for the current user
   outgoingChallenges: any[] = []; // Stores outgoing challenges from the current user
   scheduledGame: any = null; // Stores scheduled game info
+  matchHistory: any[] = []; // Stores user's match history
 
   showAllIncomingChallenges: boolean = false; // Controls visibility of all incoming challenges
   showAllOutgoingChallenges: boolean = false;
@@ -78,11 +79,13 @@ export class AccountComponent implements OnInit {
   loadCurrentUser() {
     this.userService.getCurrentUser().subscribe(
       (user) => {
+        console.log(user);
         this.currentUser = user;
         this.mapCurrentUserTournamentInfo();
         this.loadPendingChallenges();
         this.loadScheduledGame(); // Load scheduled game
         this.loadNotifications();
+        this.loadMatchHistory(); // Load match history for current user
       },
       (error) => {
         console.error('Error fetching current user:', error);
@@ -205,18 +208,17 @@ export class AccountComponent implements OnInit {
   // Fetch the scheduled game for the current user
   loadScheduledGame() {
     if (this.currentUser) {
-      this.userService.getScheduledGame(this.currentUser.email).subscribe(
-        (result) => {
-          if (result.message == 'No scheduled game found.'){
+      this.userService
+        .getScheduledGame(this.currentUser.email)
+        .subscribe((result) => {
+          if (result.message == 'No scheduled game found.') {
             this.scheduledGame == null;
-          }
-          else{
+          } else {
             this.scheduledGame = result;
           }
-      }
-      );
+        });
     }
-  }  
+  }
 
   cancelScheduledGame() {
     if (this.scheduledGame) {
@@ -250,6 +252,61 @@ export class AccountComponent implements OnInit {
             );
         }
       });
+    }
+  }
+  loadMatchHistory() {
+    // Ensure currentUserTournamentInfo is available
+    if (this.currentUserTournamentInfo) {
+      const currentUserId = this.currentUserTournamentInfo.user_id; // Access user_id through tournament info
+
+      this.userService.getUserMatchHistory(this.currentUser.email).subscribe(
+        (history) => {
+          this.matchHistory = history.map((match) => {
+            let opponent = '';
+            let result = '';
+
+            // Determine if current user played as white or black using currentUserId
+            if (match.white_user_id === currentUserId) {
+              opponent = match.black_player; // Opponent is the black player
+              result =
+                match.result === 'white_win'
+                  ? 'Victory'
+                  : match.result === 'black_win'
+                  ? 'Defeat'
+                  : 'Draw';
+            } else if (match.black_user_id === currentUserId) {
+              opponent = match.white_player; // Opponent is the white player
+              result =
+                match.result === 'black_win'
+                  ? 'Victory'
+                  : match.result === 'white_win'
+                  ? 'Defeat'
+                  : 'Draw';
+            }
+
+            return {
+              opponent: opponent,
+              played_at: match.played_at,
+              result: result,
+            };
+          });
+
+          if (this.matchHistory.length > 0) {
+            console.log(
+              'Match history retrieved successfully:',
+              this.matchHistory
+            );
+          } else {
+            console.log('No match history found for the current user.');
+          }
+        },
+        (error) => {
+          console.error('Error fetching match history:', error);
+          console.log('suk pzdc');
+        }
+      );
+    } else {
+      console.error('No current user tournament info found.');
     }
   }
 }
