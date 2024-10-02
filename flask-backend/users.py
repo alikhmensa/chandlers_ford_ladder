@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 # Load environment variables from .env file
 load_dotenv()
@@ -473,4 +474,60 @@ def get_user_match_history(user_email):
     except Exception as e:
         return jsonify({'message': 'Failed to fetch match history', 'error': str(e)}), 500
 
+
+@users_bp.route('/submit-game-result', methods=['POST'])
+@jwt_required()
+def submit_game_result():
+    try:
+        # Extract game result data from request
+        data = request.json
+        white_player_email = data.get('whitePlayerEmail')
+        black_player_email = data.get('blackPlayerEmail')
+        result = data.get('result')
+        game_date = data.get('gameDate')
+        challenge_id = data.get('challengeId')  # Include challenge_id if it's available
+
+        if not white_player_email or not black_player_email or not result or not game_date:
+            return jsonify({'message': 'All fields are required.'}), 400
+
+        # Ensure the result matches the enum values in your table
+        if result == "White won":
+            result = 'white_win'
+        elif result == "Black won":
+            result = 'black_win'
+        elif result == "Draw":
+            result = 'draw'
+        else:
+            return jsonify({'message': 'Invalid result value'}), 400
+
+        # Fetch user IDs based on emails using the existing function
+        white_user = get_user_by_email(white_player_email)
+        black_user = get_user_by_email(black_player_email)
+
+        if not white_user or not black_user:
+            return jsonify({'message': 'Invalid player email(s) provided'}), 404
+        
+        try:
+            game_date = datetime.strptime(game_date, "%Y-%m-%dT%H:%M:%S.%fZ").date()
+        except ValueError:
+            return jsonify({'message': 'Invalid date format'}), 400
+
+        white_user_id = white_user['user_id']
+        black_user_id = black_user['user_id']
+
+        # Insert game result into the matches table
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO matches (white_user_id, black_user_id, result, played_at, challenge_id)
+            VALUES (%s, %s, %s, %s, %s)
+        ''', (white_user_id, black_user_id, result, game_date, challenge_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Game result submitted successfully.'}), 201
+
+    except Exception as e:
+        return jsonify({'message': 'Failed to submit game result', 'error': str(e)}), 500
 

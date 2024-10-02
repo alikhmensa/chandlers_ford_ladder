@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeclineChallengeDialogComponent } from '../decline-challenge-dialog/decline-challenge-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { GameResultDialogComponent } from '../game-result-dialog/game-result-dialog.component';
 
 @Component({
   selector: 'app-account',
@@ -309,4 +310,24 @@ export class AccountComponent implements OnInit {
       console.error('No current user tournament info found.');
     }
   }
+
+  enterResults() {
+    console.log(this.scheduledGame);
+    const dialogRef = this.dialog.open(GameResultDialogComponent, {
+      width: '400px',
+      data: {
+        tournamentId: 1, // Example tournament ID
+        player1: this.currentUserTournamentInfo.full_name, // Optional: Name of player 1
+        player2: this.scheduledGame.opponent_name,
+        challengeId: this.scheduledGame.challenge_id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadScheduledGame();
+      }
+    });
+  }
+
 }

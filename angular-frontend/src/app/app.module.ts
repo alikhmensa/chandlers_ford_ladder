@@ -24,6 +24,12 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { RulesComponent } from './components/rules/rules.component';
 import { DeclineChallengeDialogComponent } from './components/decline-challenge-dialog/decline-challenge-dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { GameResultDialogComponent } from './components/game-result-dialog/game-result-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     NavigationBarComponent,
     RulesComponent,
     DeclineChallengeDialogComponent,
+    GameResultDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +61,13 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTooltipModule,
     MatRadioModule,
     MatTabsModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

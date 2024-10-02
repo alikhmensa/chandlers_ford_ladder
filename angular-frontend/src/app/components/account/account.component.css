@@ -88,11 +88,6 @@ body {
   align-items: stretch;
 }
 
-.date-button-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Align button and date vertically */
-}
 
 .games-container {
   display: grid;
@@ -119,7 +114,16 @@ body {
   padding: 0.7rem;
   height: 30px;
   border: none;
-  margin-top: -23px;
+}
+
+.results-button{
+  background-color: #b0ffb0 !important;
+  color: black !important;
+  border-radius: 0;
+  font-size: 0.7rem;
+  padding: 0.7rem;
+  height: 30px;
+  border: none;
 }
 
 /* Individual Section Styles */

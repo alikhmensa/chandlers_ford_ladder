@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Enter Game Result</h2>
+<form [formGroup]="gameResultForm" (ngSubmit)="onSubmit()" style="padding: 15px;">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Player Playing White</mat-label>
+    <mat-select formControlName="whitePlayer" required>
+      <mat-option *ngFor="let player of filteredPlayers" [value]="player.email">
+        {{ player.full_name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="gameResultForm.get('whitePlayer')?.hasError('samePlayer')">
+      White and Black players cannot be the same
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Player Playing Black</mat-label>
+    <mat-select formControlName="blackPlayer" required>
+      <mat-option *ngFor="let player of filteredPlayers" [value]="player.email">
+        {{ player.full_name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="gameResultForm.get('blackPlayer')?.hasError('samePlayer')">
+      White and Black players cannot be the same
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Game Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="gameDate" [max]="today" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Result</mat-label>
+    <mat-select formControlName="result" required>
+      <mat-option value="White won">White won</mat-option>
+      <mat-option value="Black won">Black won</mat-option>
+      <mat-option value="Draw">Draw</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="dialog-actions">
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!gameResultForm.valid">Submit</button>
+  </div>
+</form>

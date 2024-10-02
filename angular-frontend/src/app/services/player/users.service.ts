@@ -147,7 +147,16 @@ export class UserService {
     }
   }
 
-
+  submitGameResult(gameResult: any): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.post<any>(`${this.baseUrl}/submit-game-result`, gameResult, { headers });
+    } else {
+      throw new Error('No access token found');
+    }
+  }
+  
   
 }
 

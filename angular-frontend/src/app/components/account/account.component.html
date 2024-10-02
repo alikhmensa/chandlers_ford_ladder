@@ -14,29 +14,38 @@
         <div class="header-design">
           <h2>SCHEDULED GAME</h2>
         </div>
-        <p *ngIf="scheduledGame; else noScheduledGame">
-          <strong>OPPONENT:</strong> {{ scheduledGame.opponent_name }}
-          <br />
-          <br />
-          <strong>RANK:</strong> #{{ scheduledGame.opponent_rank }}
-          <br />
-        </p>
-        <div *ngIf="scheduledGame" class="date-button-row">
-          <p><strong>DATE:</strong> {{ scheduledGame.scheduled_date }}</p>
-          <button
-            mat-raised-button
-            color="warn"
-            class="cancel-button"
-            (click)="cancelScheduledGame()"
-          >
-            CANCEL GAME
-          </button>
-        </div>
+        <div *ngIf="scheduledGame; else noScheduledGame" fxLayout="column" fxLayoutGap="10px">
+          <div> 
+            <strong>OPPONENT:</strong> {{ scheduledGame.opponent_name || 'N/A' }}
+          </div>
+          <div>
+            <strong>DATE:</strong> {{ scheduledGame.scheduled_date || 'TBD' }}
+          </div>
 
+          <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="scheduledGame">
+            <button
+              mat-raised-button
+              class="results-button"
+              (click)="enterResults()"
+            >
+              ENTER RESULTS
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              class="cancel-button"
+              (click)="cancelScheduledGame()"
+            >
+              CANCEL GAME
+            </button>
+          </div>
+        </div>
+      
         <ng-template #noScheduledGame>
           <p>No active challenges yet</p>
         </ng-template>
       </div>
+      
 
       <div class="match-history-class">
         <div class="header-design">
